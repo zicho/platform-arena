@@ -1,0 +1,164 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/game_scene.tscn" type="PackedScene" id=1]
+[ext_resource path="res://levels/level1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/main_menu.gd" type="Script" id=3]
+[ext_resource path="res://ui/player_HUD.tscn" type="PackedScene" id=4]
+
+[node name="main" type="Node" index="0"]
+
+[node name="Container" type="ViewportContainer" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -120.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+stretch = true
+stretch_shrink = 1
+_sections_unfolded = [ "Anchor", "Rect" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Viewport" type="Viewport" parent="Container" index="0"]
+
+arvr = false
+size = Vector2( 1200, 960 )
+own_world = false
+world = null
+transparent_bg = false
+msaa = 0
+hdr = true
+disable_3d = false
+usage = 2
+debug_draw = 0
+render_target_v_flip = false
+render_target_clear_mode = 0
+render_target_update_mode = 3
+audio_listener_enable_2d = false
+audio_listener_enable_3d = false
+physics_object_picking = false
+gui_disable_input = false
+gui_snap_controls_to_pixels = true
+shadow_atlas_size = 0
+shadow_atlas_quad_0 = 2
+shadow_atlas_quad_1 = 2
+shadow_atlas_quad_2 = 3
+shadow_atlas_quad_3 = 4
+
+[node name="game_scene" parent="Container/Viewport" index="0" instance=ExtResource( 1 )]
+
+level = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Container" index="1"]
+
+visible = false
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -325.0
+margin_top = 408.0
+margin_right = -227.0
+margin_bottom = 436.0
+rect_scale = Vector2( 7, 7 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 5
+size_flags_vertical = 1
+bbcode_enabled = false
+bbcode_text = "PLAYER 1 WINS"
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = "PLAYER 1 WINS"
+scroll_active = true
+scroll_following = false
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "Anchor", "BBCode", "Focus", "Hint", "Rect", "Size Flags", "custom_fonts" ]
+
+[node name="main_menu" type="PanelContainer" parent="." index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 960.0
+margin_right = 1200.0
+margin_bottom = 1080.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 3 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="player_huds" type="Panel" parent="main_menu" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1193.0
+margin_bottom = 113.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="player_HUD" parent="main_menu/player_huds" index="0" groups=[
+"player_HUD",
+] instance=ExtResource( 4 )]
+
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 175.0
+margin_bottom = 99.0
+
+[node name="player_HUD2" parent="main_menu/player_huds" index="1" groups=[
+"player_HUD",
+] instance=ExtResource( 4 )]
+
+margin_left = 175.0
+margin_top = 7.0
+margin_right = 343.0
+margin_bottom = 99.0
+
+[node name="player_HUD3" parent="main_menu/player_huds" index="2" groups=[
+"player_HUD",
+] instance=ExtResource( 4 )]
+
+editor/display_folded = true
+margin_left = 343.0
+margin_top = 7.0
+margin_right = 511.0
+margin_bottom = 99.0
+
+[node name="player_HUD4" parent="main_menu/player_huds" index="3" groups=[
+"player_HUD",
+] instance=ExtResource( 4 )]
+
+editor/display_folded = true
+margin_left = 511.0
+margin_top = 7.0
+margin_right = 679.0
+margin_bottom = 99.0
+
+

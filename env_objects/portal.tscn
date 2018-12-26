@@ -1,0 +1,108 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://env_objects/portal.gd" type="Script" id=1]
+[ext_resource path="res://particles/portal_destination.tscn" type="PackedScene" id=2]
+[ext_resource path="res://gfx/portal.png" type="Texture" id=3]
+
+[sub_resource type="ParticlesMaterial" id=1]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 1
+emission_sphere_radius = 12.0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 180.0
+flatness = 0.0
+gravity = Vector3( 20, 0, 0 )
+initial_velocity = 2.0
+initial_velocity_random = 0.0
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 0.0
+scale = 1.0
+scale_random = 0.0
+color = Color( 0.542969, 1, 0.582245, 1 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Color", "Emission Shape", "Flags", "Gravity", "Initial Velocity", "Spread", "Trail" ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1.24671, 10.8415 )
+
+[node name="portal" type="Node2D"]
+
+script = ExtResource( 1 )
+
+[node name="dest" type="Position2D" parent="." index="0"]
+
+[node name="fx" parent="." index="1" instance=ExtResource( 2 )]
+
+[node name="start" type="Area2D" parent="." index="2"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 8
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="permanent_fx" type="Particles2D" parent="start" index="0"]
+
+emitting = true
+amount = 8
+lifetime = 1.0
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 1 )
+texture = null
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Process Material" ]
+
+[node name="gfx" type="Sprite" parent="start" index="1"]
+
+texture = ExtResource( 3 )
+
+[node name="shape" type="CollisionShape2D" parent="start" index="2"]
+
+position = Vector2( -7.68943, 0.284794 )
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="start" to="." method="_on_start_body_entered"]
+
+

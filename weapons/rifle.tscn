@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://weapons/rifle.gd" type="Script" id=1]
+[ext_resource path="res://projectiles/rifle_projectile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://gfx/machinegun.png" type="Texture" id=3]
+
+[node name="rifle" type="Node2D"]
+
+scale = Vector2( 0.4, 0.4 )
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+projectile = ExtResource( 2 )
+damage = 5
+display_name = "Weapon Name"
+shot_delay = 0.1
+spread = 0.0
+
+[node name="barrel" type="Position2D" parent="." index="0"]
+
+position = Vector2( -1.65708, -9.9311 )
+_sections_unfolded = [ "Pause", "Transform" ]
+
+[node name="gfx" type="Sprite" parent="." index="1"]
+
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Offset" ]
+
+

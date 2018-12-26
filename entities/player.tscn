@@ -1,0 +1,134 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://entities/player.gd" type="Script" id=1]
+[ext_resource path="res://gfx/player.png" type="Texture" id=2]
+[ext_resource path="res://gfx/healthbar_under.png" type="Texture" id=3]
+[ext_resource path="res://gfx/healthbar_progress.png" type="Texture" id=4]
+[ext_resource path="res://gfx/progress_icon_armor.png" type="Texture" id=5]
+[ext_resource path="res://gfx/progress_icon_health.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 11, 11 )
+
+[node name="player" type="KinematicBody2D" groups=[
+"players",
+]]
+
+position = Vector2( 80.6863, 73.7066 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 26
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform", "collision" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="gfx" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 2 )
+centered = false
+_sections_unfolded = [ "Offset", "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="hands" type="Position2D" parent="gfx" index="0"]
+
+position = Vector2( 12, 14 )
+rotation = 3.14159
+scale = Vector2( -1, 1 )
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
+
+[node name="shape" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( 12, 12 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="health_bar" type="TextureProgress" parent="." index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 134.0
+margin_bottom = 5.0
+rect_scale = Vector2( 0.3, 0.3 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 20.0
+exp_edit = false
+rounded = false
+texture_under = ExtResource( 3 )
+texture_over = null
+texture_progress = ExtResource( 4 )
+radial_fill_degrees = 360.0
+radial_center_offset = Vector2( 0, 0 )
+nine_patch_stretch = false
+_sections_unfolded = [ "Rect", "Textures" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="armor_bar" type="TextureProgress" parent="." index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -10.0
+margin_top = -10.0
+margin_right = 134.0
+margin_bottom = 14.0
+rect_scale = Vector2( 0.3, 0.3 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+texture_under = ExtResource( 3 )
+texture_over = null
+texture_progress = ExtResource( 4 )
+radial_fill_degrees = 360.0
+radial_center_offset = Vector2( 0, 0 )
+nine_patch_stretch = false
+_sections_unfolded = [ "Rect", "Textures" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="progress_icon_armor" type="Sprite" parent="." index="4"]
+
+position = Vector2( -14, -7 )
+texture = ExtResource( 5 )
+
+[node name="progress_icon_health" type="Sprite" parent="." index="5"]
+
+position = Vector2( -14, -16 )
+texture = ExtResource( 6 )
+
+

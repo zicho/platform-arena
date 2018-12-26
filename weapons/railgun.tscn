@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://weapons/railgun.gd" type="Script" id=1]
+[ext_resource path="res://gfx/railgun.png" type="Texture" id=2]
+[ext_resource path="res://effects/railgun_trail.tscn" type="PackedScene" id=3]
+
+[node name="railgun" type="Node2D"]
+
+script = ExtResource( 1 )
+projectile = null
+damage = 80
+display_name = "Weapon Name"
+shot_delay = 1.6
+spread = 0.0
+
+[node name="gfx" type="Sprite" parent="." index="0"]
+
+show_behind_parent = true
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="barrel" type="Position2D" parent="." index="1"]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="ray" type="RayCast2D" parent="." index="2"]
+
+position = Vector2( -1.28783, 4.50741 )
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 2000, 0 )
+collision_mask = 9
+_sections_unfolded = [ "Transform" ]
+
+[node name="trail" parent="." index="3" instance=ExtResource( 3 )]
+
+position = Vector2( 0, 1 )
+z_index = -5
+width = 1.0
+_sections_unfolded = [ "Border", "Capping", "Fill", "Material", "Transform", "Visibility", "Z Index" ]
+
+

@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://weapons/rocket_launcher.gd" type="Script" id=1]
+[ext_resource path="res://projectiles/rocket.tscn" type="PackedScene" id=2]
+[ext_resource path="res://gfx/rocket_launcher.png" type="Texture" id=3]
+
+[node name="rocket_launcher" type="Node2D"]
+
+script = ExtResource( 1 )
+projectile = ExtResource( 2 )
+damage = 100
+display_name = "Weapon Name"
+shot_delay = 1.0
+spread = 0.0
+
+[node name="gfx" type="Sprite" parent="." index="0"]
+
+scale = Vector2( 1.25, 1.25 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="barrel" type="Position2D" parent="." index="1"]
+
+position = Vector2( 0.174706, -3.87699 )
+
+

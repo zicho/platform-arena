@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://projectiles/explosion.gd" type="Script" id=1]
+[ext_resource path="res://gfx/rocket_explosion.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 10.0
+
+[node name="explosion" type="Node2D"]
+
+position = Vector2( 90, 90 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="gfx" type="Sprite" parent="." index="0"]
+
+self_modulate = Color( 1, 1, 1, 0.325961 )
+position = Vector2( 0.066061, -0.066061 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility" ]
+
+[node name="splash_radius" type="Area2D" parent="." index="1"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 16
+collision_mask = 9
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Audio Bus", "Collision" ]
+
+[node name="shape" type="CollisionShape2D" parent="splash_radius" index="0"]
+
+shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="2"]
+
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 0, 50 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+
