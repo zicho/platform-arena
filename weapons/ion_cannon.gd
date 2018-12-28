@@ -4,6 +4,7 @@ extends "res://weapons/weapon_base.gd"
 # var a = 2
 # var b = "textvar"
 
+
 var ray_hit = Vector2()
 var shot_range = 500
 
@@ -11,21 +12,30 @@ var damage_timer = Timer.new()
 var damage_cooldown = 0.1
 var do_damage = true
 
+var ammo_timer = Timer.new()
+var ammo_cooldown = 0.025
+var decrease_ammo = true
+
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
-	
+
 	damage_timer.connect("timeout", self, "do_damage")
 	damage_timer.set_wait_time(damage_cooldown)
 	add_child(damage_timer)
+	
+	ammo_timer.connect("timeout", self, "decrease_ammo")
+	ammo_timer.set_wait_time(ammo_cooldown)
+	add_child(ammo_timer)
 
 func do_damage():
 	do_damage = true
+	
+func decrease_ammo():
+	decrease_ammo = true
 
 func _process(delta):
-	
+
 	var player
-	
+
 	if shooter:
 		if shooter.instance_name == "player":
 			player = GLOBAL.p1
@@ -47,6 +57,11 @@ func shoot(dir):
 	cd_timer.connect("timeout", shooter, "can_shoot")
 	
 	if shooter.can_shoot:
+		
+		if decrease_ammo:
+			decrease_ammo = false
+			ammo -=1
+			ammo_timer.start()
 
 		$ray.global_position = $barrel.global_position
 		
@@ -73,6 +88,7 @@ func shoot(dir):
 					if do_damage:
 						do_damage = false
 						collider.take_damage(damage, get_parent())
+						collider.hit_effect(damage, shot_range)
 						damage_timer.start()
 						
 		else:

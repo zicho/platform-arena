@@ -107,7 +107,7 @@ func _ready():
 #
 #	add_child(respawn_timer)
 
-func score_frag(player_instance):
+func update_frags(player_instance, value):
 	
 	var hud_to_update
 	
@@ -116,8 +116,7 @@ func score_frag(player_instance):
 	elif player_instance == "player3": hud_to_update = p3_hud
 	elif player_instance == "player4": hud_to_update = p4_hud
 
-	if hud_to_update["frag_value"]: hud_to_update["frag_value"].text = str(int(hud_to_update["frag_value"].text) + 1)
-		
+	if hud_to_update["frag_value"]: hud_to_update["frag_value"].text = str(value)
 
 func spawn_initial_players():
 

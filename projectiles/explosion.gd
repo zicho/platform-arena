@@ -77,7 +77,9 @@ func _physics_process(delta):
 						if collider.is_in_group("players"):
 							if not players_hit.has(collider):
 								players_hit.append(collider)
+								b.hit_effect(damage, position.x)
 								b.take_damage(damage, shooter)
+								
 
 	if not first_loop_done:
 		first_loop_done = true

@@ -14,7 +14,14 @@ var cd_timer = Timer.new()
 export var shot_delay = 0.2
 export var spread = 0.0
 
+export var ammo = -1
+var max_ammo # NOT USED!! MAY USE IF YOU WANT TO CHANGE AMMO MECHANICS SOMEHOW BUT FOR NOW: NOT USED!!
+
 func _ready():
+	
+	if ammo != 0: # every weapon except base rifle has ammo
+		max_ammo = ammo
+	
 	cd_timer.set_wait_time(shot_delay)
 	add_child(cd_timer)
 
@@ -24,6 +31,8 @@ func shoot(dir):
 
 	if shooter.can_shoot:
 		if projectile:
+			if ammo > 0:
+				ammo -= 1
 			var bullet = projectile.instance()
 			GLOBAL.level.add_child(bullet)
 

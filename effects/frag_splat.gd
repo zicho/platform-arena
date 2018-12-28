@@ -12,4 +12,4 @@ func _ready():
 	timer.start()
 	
 func destroy():
-	queue_free()	
+	queue_free()

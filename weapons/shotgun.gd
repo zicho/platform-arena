@@ -7,7 +7,9 @@ func shoot(dir):
 	cd_timer.connect("timeout", shooter, "can_shoot")
 
 	if shooter.can_shoot:
+		ammo -= 1
 		if projectile:
+			
 			for p in pellets:
 				var bullet = projectile.instance()
 

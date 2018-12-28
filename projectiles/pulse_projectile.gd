@@ -15,6 +15,7 @@ func _on_pulse_projectile_body_entered(body):
 				body.push(knockback, 0.15)
 				
 			body.take_damage(damage, shooter)
+			body.hit_effect(damage, motion.x)
 			.destroy()
 	else:		
 		.destroy()

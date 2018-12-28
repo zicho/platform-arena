@@ -5,7 +5,7 @@
 [ext_resource path="res://ui/main_menu.gd" type="Script" id=3]
 [ext_resource path="res://ui/player_HUD.tscn" type="PackedScene" id=4]
 
-[node name="main" type="Node" index="0"]
+[node name="main" type="Node"]
 
 [node name="Container" type="ViewportContainer" parent="." index="0"]
 
@@ -64,10 +64,10 @@ anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
 anchor_bottom = 0.0
-margin_left = -325.0
-margin_top = 408.0
-margin_right = -227.0
-margin_bottom = 436.0
+margin_left = -343.0
+margin_top = 426.0
+margin_right = -237.0
+margin_bottom = 454.0
 rect_scale = Vector2( 7, 7 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
@@ -86,7 +86,7 @@ scroll_active = true
 scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
-_sections_unfolded = [ "Anchor", "BBCode", "Focus", "Hint", "Rect", "Size Flags", "custom_fonts" ]
+_sections_unfolded = [ "Anchor", "BBCode", "Focus", "Hint", "Rect", "Size Flags", "Visibility", "custom_colors", "custom_constants", "custom_fonts" ]
 
 [node name="main_menu" type="PanelContainer" parent="." index="1"]
 

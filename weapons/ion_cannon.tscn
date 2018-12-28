@@ -18,6 +18,7 @@ damage = 8
 display_name = "Weapon Name"
 shot_delay = 0.01
 spread = 0.0
+ammo = 200
 
 [node name="gfx" type="Sprite" parent="." index="0"]
 

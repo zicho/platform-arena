@@ -2,7 +2,6 @@ extends "res://weapons/weapon_base.gd"
 
 onready var trail = preload("res://effects/railgun_trail.tscn")
 
-
 var ray_hit = Vector2()
 var shot_range = 2000
 
@@ -10,7 +9,9 @@ func shoot(dir):
 	
 	cd_timer.connect("timeout", shooter, "can_shoot")
 	if shooter.can_shoot:
-
+		
+		ammo -= 1
+		
 		$ray.global_position = $barrel.global_position
 
 		if dir.x == 1:

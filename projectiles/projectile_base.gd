@@ -21,5 +21,4 @@ func _physics_process(delta):
 	global_position += motion * delta 
 	
 func destroy():
-	queue_free()	
-	
+	queue_free()

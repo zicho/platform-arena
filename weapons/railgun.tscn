@@ -4,7 +4,7 @@
 [ext_resource path="res://gfx/railgun.png" type="Texture" id=2]
 [ext_resource path="res://effects/railgun_trail.tscn" type="PackedScene" id=3]
 
-[node name="railgun" type="Node2D"]
+[node name="railgun" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 projectile = null
@@ -12,6 +12,7 @@ damage = 80
 display_name = "Weapon Name"
 shot_delay = 1.6
 spread = 0.0
+ammo = 20
 
 [node name="gfx" type="Sprite" parent="." index="0"]
 

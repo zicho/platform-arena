@@ -17,7 +17,6 @@ var push_force = 0
 var push_active_timer = Timer.new()
 var push_active = false
 
-var is_knocked = 0
 var knock_dir = Vector2(0,0)
 
 var controlled_by = 0
@@ -32,7 +31,7 @@ var dirs = { "right": Vector2(1,0), "left": Vector2(-1, 0) }
 var active_dir 
 
 onready var weapon = preload("res://weapons/rifle.tscn").instance()
-onready var secondary_weapon = preload("res://weapons/shotgun.tscn").instance()
+onready var secondary_weapon# = preload("res://weapons/shotgun.tscn").instance()
 
 var weapon_queue
 var can_shoot = true
@@ -46,7 +45,7 @@ var armor
 var armor_type = GLOBAL.armor_types.red
 
 var frags = 0
-signal score_frag(player_instance)
+signal update_frags(player_instance, value)
 
 var test_damage = 100
 
@@ -56,7 +55,7 @@ func _ready():
 
 	update_hp(100)
 	update_armor(0)
-	connect("score_frag", GLOBAL, "score_frag")
+	connect("update_frags", GLOBAL, "update_frags")
 	fragged = false 
 	#weapon = preload("res://weapons/rocket_launcher.tscn").instance()
 	#weapon = preload("res://weapons/railgun.tscn").instance()
@@ -115,16 +114,26 @@ func spawn():
 	p.global_position = spawn.get_node("spawn_pos").global_position
 	global_position = spawn.get_node("spawn_pos").global_position
 
-func take_damage(damage, dealt_by):
-
-	# BLOOD EFFECT
-	for b in range(damage):
+func hit_effect(damage, dir):
+	for b in range(damage / 5):
+		
 		var blood = load("res://effects/hit_effect.tscn").instance()
+		
+		if dir < 0:
+			blood.rotation_degrees = 180
+			blood.find_node("fx").process_material.gravity.y = -900
+		else:
+			blood.rotation_degrees = 0
+			blood.find_node("fx").process_material.gravity.y = 900
+		
+		blood.find_node("fx").emitting = true
 		blood.position.x = self.position.x + 12
 		blood.position.y = self.position.y + 12
 		blood.set_modulate(player.color)
 		GLOBAL.level.add_child(blood)
 
+func take_damage(damage, dealt_by):
+	
 	if GLOBAL.DAMAGE_DEBUG:
 		print("damage taken: %s" % damage)
 		
@@ -173,8 +182,11 @@ func take_damage(damage, dealt_by):
 			if dealt_by != self and not fragged:
 				fragged = true
 				dealt_by.frags += 1
-				emit_signal("score_frag", dealt_by.instance_name)
+				emit_signal("update_frags", dealt_by.instance_name, dealt_by.frags)
 				#GLOBAL.score_frag(dealt_by)
+			if dealt_by == self:
+				dealt_by.frags -= 1
+				emit_signal("update_frags", dealt_by.instance_name, dealt_by.frags)
 
 func add_armor(value, armor_type):
 
@@ -234,10 +246,7 @@ func update_hp(new_hp):
 
 	emit_signal("hp_changed", hp, self)
 
-func _physics_process(delta):
-
-	if is_knocked != 0:
-		is_knocked -= 1
+func _process(delta):
 
 	if not push_active:
 		velocity += GRAVITY * (delta * 2)
@@ -277,7 +286,7 @@ func _physics_process(delta):
 
 	if weapon_queue and can_shoot:
 		switch_weapon()
-
+		
 	if weapon:
 		weapon.global_position = hands.global_position
 
@@ -297,26 +306,54 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed(player.switch_weapon):
 
-		emit_signal("check_weapon_pickups")
+		#emit_signal("check_weapon_pickups")
 
 		if can_shoot:
-			switch_weapon()
+			switch_weapon()			
 		else:
 			weapon_queue = secondary_weapon
 #
 #	if Input.is_action_just_pressed("ui_accept"):
 #		take_damage(100, self)
 
+	if armor <= 0:
+		$armor_bar.visible = false
+		$progress_icon_armor.visible = false
+	else:
+		$armor_bar.visible = true
+		$progress_icon_armor.visible = true
+		
+	$ammo_label.text = str(weapon.ammo)
+	if weapon.ammo <= 0:
+		$ammo_label.visible = false
+	else:
+		$ammo_label.visible = true
+		
+	if weapon.ammo == 0:
+		switch_weapon(true) # removes old empty weapon
+
 func pick_up_weapon(weapon):
 
 	if can_shoot:
+		if secondary_weapon == null:
+			secondary_weapon = self.weapon
+			
 		remove_child(self.weapon)
 		self.weapon = weapon
 		add_child(weapon)
 	else:
 		weapon_queue = weapon	
 
-func switch_weapon():
+func has_weapon(weapon_ref):
+	
+	if weapon.get_filename() == weapon_ref.get_path():
+		return true
+	if secondary_weapon != null:
+		if secondary_weapon.get_filename() == weapon_ref.get_path():	
+			return true
+	return false	
+
+func switch_weapon(remove_old = false): # remove old uses to remove weapons which are out of ammo
 
 	var on_pickup = false
 
@@ -328,24 +365,44 @@ func switch_weapon():
 			on_pickup = true
 			weapon_queue = null
 
-	if not on_pickup:
+	if not on_pickup and secondary_weapon != null:
+
 		weapon_queue = null
+
+		if weapon.ammo <= 0:
+			remove_old = true
+
 		if can_shoot:
 			var wpn = weapon
 			var s_wpn = secondary_weapon
 			remove_child(weapon)
 			weapon = s_wpn
-			secondary_weapon = wpn
+			if not remove_old:
+				secondary_weapon = wpn
+			else:
+				
+#				if one gun goes empty, replace it with the standard rifle,
+#				if the rifle is not already in inventory
+				
+				var rifle = load("res://weapons/rifle.tscn")
+				if not has_weapon(rifle):
+					secondary_weapon = load("res://weapons/rifle.tscn").instance()
+				else:
+					secondary_weapon = null
+					
 			add_child(weapon)
 
 		else:
 			weapon_queue = weapon
-
+	
+	turn_weapon_sprite()
+	
+func turn_weapon_sprite():
 	if weapon.sprite:
 		if active_dir.x == 1:
 			weapon.sprite.flip_h = false
 		else:
-			weapon.sprite.flip_h = true
+			weapon.sprite.flip_h = true	
 
 func can_shoot():
 	can_shoot = true
