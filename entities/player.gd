@@ -127,7 +127,7 @@ func hit_effect(damage, dir):
 		blood.set_modulate(player.color)
 		GLOBAL.level.add_child(blood)
 
-func take_damage(damage, dealt_by):
+func take_damage(damage, dealt_by, weapon = null):
 	
 	if $sfx: $sfx.play()
 	
@@ -181,6 +181,9 @@ func take_damage(damage, dealt_by):
 				dealt_by.frags += 1
 				emit_signal("update_frags", dealt_by.instance_name, dealt_by.frags)
 				#GLOBAL.score_frag(dealt_by)
+				GLOBAL.MESSAGE_LOG.append_bbcode("[color=#%s]%s[/color] killed [color=#%s]%s[/color]" % [dealt_by.player.color, dealt_by.player.name, self.player.color, self.player.name])
+				GLOBAL.MESSAGE_LOG.newline()
+			
 			if dealt_by == self:
 				dealt_by.frags -= 1
 				emit_signal("update_frags", dealt_by.instance_name, dealt_by.frags)
@@ -243,12 +246,24 @@ func update_hp(new_hp):
 
 	emit_signal("hp_changed", hp, self)
 
-func _process(delta):
+func push_loop(delta):
 
 	if not push_active:
 		velocity += GRAVITY * (delta * 2)
 	else:
 		velocity += (GRAVITY / 4) * (delta * 2)
+
+	if not push_active and push_force > 0:
+		push_force -= 25
+
+	if not push_active and push_force < 0:
+		push_force += 25
+
+	if is_on_wall() and push_active_timer.time_left < 0.005:
+		push_force = 0
+		push_ended()	
+
+func move_loop(delta):
 
 	velocity = move_and_slide(velocity, FLOOR_NORMAL)
 	movement = 0
@@ -260,12 +275,7 @@ func _process(delta):
 
 	movement *= speed 
 
-	velocity.x = lerp(velocity.x, movement, ACCELERATION) + push_force			
-
-	if not push_active and push_force > 0:
-		push_force -= 25
-	if not push_active and push_force < 0:
-		push_force += 25
+	velocity.x = lerp(velocity.x, movement, ACCELERATION) + push_force
 
 	jump_timer += delta
 	can_jump = jump_timer < JUMP_THRESHOLD
@@ -273,13 +283,13 @@ func _process(delta):
 	if is_on_floor():
 		jump_timer = 0
 
+func jump_loop():
+
 	if can_jump && Input.is_action_just_pressed(player.jump):
 		jump_timer = JUMP_THRESHOLD
 		velocity.y -= JUMP_FORCE
 
-	if is_on_wall() and push_active_timer.time_left < 0.005:
-		push_force = 0
-		push_ended()
+func weapon_loop():
 
 	if weapon_queue and can_shoot:
 		switch_weapon()
@@ -291,29 +301,27 @@ func _process(delta):
 			weapon.shooter = self
 			weapon.shoot(active_dir)
 
-		
-		if(Input.is_action_pressed(player.right) and not Input.is_action_pressed(player.shoot)):
-			turn_right()
-		if(Input.is_action_pressed(player.left) and not Input.is_action_pressed(player.shoot)):
-			turn_left()
-#
-#		if(Input.is_action_pressed(player.right) and not Input.is_action_pressed(player.turnlock)):
+#		if(Input.is_action_pressed(player.right) and not Input.is_action_pressed(player.shoot)):
 #			turn_right()
-#		if(Input.is_action_pressed(player.left) and not Input.is_action_pressed(player.turnlock)):
-#			turn_left()	
+#		if(Input.is_action_pressed(player.left) and not Input.is_action_pressed(player.shoot)):
+#			turn_left()
+
+		if(Input.is_action_pressed(player.right) and not Input.is_action_pressed(player.turnlock)):
+			turn_right()
+		if(Input.is_action_pressed(player.left) and not Input.is_action_pressed(player.turnlock)):
+			turn_left()	
 
 	if Input.is_action_just_pressed(player.switch_weapon):
-
-		#emit_signal("check_weapon_pickups")
 
 		if can_shoot:
 			switch_weapon()			
 		else:
 			weapon_queue = secondary_weapon
-#
-#	if Input.is_action_just_pressed("ui_accept"):
-#		take_damage(100, self)
 
+	if weapon.ammo == 0:
+		switch_weapon(true) # removes old empty weapon
+
+func gui_loop():
 	if armor <= 0:
 		$armor_bar.visible = false
 		$progress_icon_armor.visible = false
@@ -326,9 +334,17 @@ func _process(delta):
 		$ammo_label.visible = false
 	else:
 		$ammo_label.visible = true
-		
-	if weapon.ammo == 0:
-		switch_weapon(true) # removes old empty weapon
+
+func _process(delta):
+
+	push_loop(delta)
+	move_loop(delta)
+	jump_loop()
+	weapon_loop()
+	gui_loop()
+
+#	if Input.is_action_just_pressed("ui_accept"):
+#		take_damage(100, self)
 
 func pick_up_weapon(weapon):
 

@@ -11,11 +11,9 @@ func entered(body):
 		if not body.has_weapon(weapon_ref):
 			$info.visible = true
 		elif body.weapon.get_filename() == weapon_ref.get_path():
-			print("%s gets ammo" % body.weapon.name)
 			body.weapon.ammo = weapon_ref.instance().ammo
 			.picked_up()
 		elif body.secondary_weapon.get_filename() == weapon_ref.get_path():
-			print("%s gets ammo" % body.secondary_weapon.name)
 			body.secondary_weapon.ammo = weapon_ref.instance().ammo
 			.picked_up()
 

@@ -9,6 +9,7 @@ var DAMAGE_DEBUG = false
 ## CONTROLS
 
 var p1 = {
+	"name": null,
 	"color": "D5452F",
 	"right": "p1_right",
 	"left": "p1_left",
@@ -19,6 +20,7 @@ var p1 = {
 }
 
 var p2 = {
+	"name": null,
 	"color": "59B8FF",
 	"right": "p2_right",
 	"left": "p2_left",
@@ -29,6 +31,7 @@ var p2 = {
 }
 
 var p3 = {
+	"name": null,
 	"color": "32CD32",
 	"right": "p3_right",
 	"left": "p3_left",
@@ -40,6 +43,7 @@ var p3 = {
 
 
 var p4 = {
+	"name": null,
 	"color": "FFD700",
 	"right": "p4_right",
 	"left": "p4_left",
@@ -94,14 +98,30 @@ var p4_hud = {
 onready var NO_OF_PLAYERS = 4 # max 4
 enum PLAYERS { player1, player2, player3, player4 }
 
+var PLAYER_NAMES = { 
+	"player": "Player 1", 
+	"player2": "Player 2", 
+	"player3": "Player 3", 
+	"player4": "Player 4" 
+}
+
 var RESPAWN_TIME = 2
 var FRAG_LIMIT = 1
 
+var MESSAGE_LOG
+
 func _ready():
 
+	p1.name = PLAYER_NAMES["player"]
+	p2.name = PLAYER_NAMES["player2"]
+	p3.name = PLAYER_NAMES["player3"]
+	p4.name = PLAYER_NAMES["player4"]
+	
 	var main_menu = get_tree().get_root().get_node("main/main_menu")
 	
 	if main_menu: main_menu.initialize_HUD()
+	
+	MESSAGE_LOG = get_tree().get_root().get_node("main/main_menu/messages/message_log")
 
 func update_frags(player_instance, value):
 

@@ -43,10 +43,21 @@ func _physics_process(delta):
 				rays.append(r2)
 				rays.append(r3)
 
-				for r in rays:	
-					add_child(r)
-					r.set_collision_mask_bit(0, 1)
-					r.enabled = true
+				add_child(r1)
+				r1.set_collision_mask_bit(0, 1)
+				r1.enabled = true
+				
+				add_child(r2)
+				r2.set_collision_mask_bit(0, 1)
+				r2.enabled = true
+				
+				add_child(r3)
+				r3.set_collision_mask_bit(0, 1)
+				r3.enabled = true
+				
+				add_child(r4)
+				r4.set_collision_mask_bit(0, 1)
+				r4.enabled = true
 
 				var offset = 8 # the offset is the amount of pixels the splash is emanating from
 
