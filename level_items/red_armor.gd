@@ -1,5 +1,8 @@
 extends "res://level_items/item_base.gd"
 
+func _ready():
+	self.add_to_group("armors")
+
 func _on_red_armor_body_entered(body):
 
 	if body.is_in_group("players"):

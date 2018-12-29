@@ -28,7 +28,7 @@ position = Vector2( -0.429276, -4.07812 )
 [node name="sfx" type="AudioStreamPlayer" parent="." index="2"]
 
 stream = ExtResource( 4 )
-volume_db = 0.0
+volume_db = -6.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://env_objects/portal.gd" type="Script" id=1]
 [ext_resource path="res://particles/portal_destination.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gfx/portal.png" type="Texture" id=3]
+[ext_resource path="res://sfx/portal.wav" type="AudioStream" id=4]
 
 [sub_resource type="ParticlesMaterial" id=1]
 
@@ -102,6 +103,15 @@ texture = ExtResource( 3 )
 
 position = Vector2( -7.68943, 0.284794 )
 shape = SubResource( 2 )
+
+[node name="sfx" type="AudioStreamPlayer" parent="." index="3"]
+
+stream = ExtResource( 4 )
+volume_db = -12.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 [connection signal="body_entered" from="start" to="." method="_on_start_body_entered"]
 

@@ -129,7 +129,7 @@ func hit_effect(damage, dir):
 
 func take_damage(damage, dealt_by, weapon = null):
 	
-	if $sfx: $sfx.play()
+	if $hit_sfx: $hit_sfx.play()
 	
 	if GLOBAL.DAMAGE_DEBUG:
 		print("damage taken: %s" % damage)
@@ -288,6 +288,7 @@ func jump_loop():
 	if can_jump && Input.is_action_just_pressed(player.jump):
 		jump_timer = JUMP_THRESHOLD
 		velocity.y -= JUMP_FORCE
+		if $jump_sfx: $jump_sfx.play()
 
 func weapon_loop():
 
@@ -301,15 +302,22 @@ func weapon_loop():
 			weapon.shooter = self
 			weapon.shoot(active_dir)
 
-#		if(Input.is_action_pressed(player.right) and not Input.is_action_pressed(player.shoot)):
-#			turn_right()
+		if Input.is_action_pressed(player.right):
+			if not Input.is_action_pressed(player.shoot):
+				if not Input.is_action_pressed(player.turnlock):
+					turn_right()
+		if Input.is_action_pressed(player.left):
+			if not Input.is_action_pressed(player.shoot):
+				if not Input.is_action_pressed(player.turnlock):
+					turn_left()		
+				
 #		if(Input.is_action_pressed(player.left) and not Input.is_action_pressed(player.shoot)):
 #			turn_left()
 
-		if(Input.is_action_pressed(player.right) and not Input.is_action_pressed(player.turnlock)):
-			turn_right()
-		if(Input.is_action_pressed(player.left) and not Input.is_action_pressed(player.turnlock)):
-			turn_left()	
+#		if(Input.is_action_pressed(player.right) and not Input.is_action_pressed(player.turnlock)):
+#			turn_right()
+#		if(Input.is_action_pressed(player.left) and not Input.is_action_pressed(player.turnlock)):
+#			turn_left()	
 
 	if Input.is_action_just_pressed(player.switch_weapon):
 

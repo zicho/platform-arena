@@ -110,8 +110,10 @@ var FRAG_LIMIT = 1
 
 var MESSAGE_LOG
 
-func _ready():
+var PLAY_SPAWN_SOUND = true # this is needed to not play the sound for spawning when game starts
 
+func _ready():
+	
 	p1.name = PLAYER_NAMES["player"]
 	p2.name = PLAYER_NAMES["player2"]
 	p3.name = PLAYER_NAMES["player3"]
@@ -151,6 +153,8 @@ func spawn_initial_players():
 
 		assign_player += 1
 		player.spawn()
+
+	PLAY_SPAWN_SOUND = true	# after initial spawn, we wanna play it
 
 
 func respawn_player(controlled_by):
