@@ -10,8 +10,7 @@ func _on_pulse_projectile_body_entered(body):
 			
 			if motion.x < 0:
 				body.push(-knockback, 0.15)
-			else:	
-				print("else")
+			else:
 				body.push(knockback, 0.15)
 				
 			body.take_damage(damage, shooter)
