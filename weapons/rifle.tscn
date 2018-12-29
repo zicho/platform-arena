@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://weapons/rifle.gd" type="Script" id=1]
 [ext_resource path="res://projectiles/rifle_projectile.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gfx/machinegun.png" type="Texture" id=3]
+[ext_resource path="res://sfx/machine_gun.wav" type="AudioStream" id=4]
 
 [node name="rifle" type="Node2D"]
 
@@ -11,7 +12,7 @@ _sections_unfolded = [ "Transform" ]
 projectile = ExtResource( 2 )
 damage = 5
 display_name = "Weapon Name"
-shot_delay = 0.1
+shot_delay = 0.15
 spread = 0.0
 ammo = -1
 
@@ -27,5 +28,14 @@ _sections_unfolded = [ "Material", "Offset", "Transform" ]
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="sfx" type="AudioStreamPlayer" parent="." index="2"]
+
+stream = ExtResource( 4 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 

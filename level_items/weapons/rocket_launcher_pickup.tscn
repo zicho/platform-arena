@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 20, 10 )
 
-[node name="rocket_launcher_pickup" type="Area2D" index="0" groups=[
+[node name="rocket_launcher_pickup" type="Area2D" groups=[
 "weapon_pickups",
 ]]
 
@@ -18,10 +18,11 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+collision_layer = 0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Collision", "Transform" ]
 __meta__ = {
 "_edit_group_": true
 }
@@ -35,7 +36,6 @@ _sections_unfolded = [ "Offset" ]
 
 [node name="shape" type="CollisionShape2D" parent="." index="1"]
 
-scale = Vector2( 1, 1 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Pickable" ]
 

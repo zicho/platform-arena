@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/rocket_explosion.wav-5d42e2b0775912633da231f932e655fa.sample"
+
+[deps]
+
+source_file="res://sfx/rocket_explosion.wav"
+dest_files=[ "res://.import/rocket_explosion.wav-5d42e2b0775912633da231f932e655fa.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

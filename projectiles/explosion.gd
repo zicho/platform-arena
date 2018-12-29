@@ -21,7 +21,8 @@ func _physics_process(delta):
 		splash_shape.shape.radius += 4
 		sprite.scale += Vector2(0.5, 0.5)
 	else:
-		queue_free()
+    	queue_free()
+		
 
 	splash_radius.get_overlapping_bodies()
 
@@ -82,6 +83,11 @@ func _physics_process(delta):
 								
 
 	if not first_loop_done:
+		if $sfx: # this needs to be done so that the sound finishes after the explosion is gone
+			var sfx = $sfx.duplicate()
+			GLOBAL.level.add_child(sfx)
+			sfx.play()
+			
 		first_loop_done = true
 	else:
 		damage -= 5

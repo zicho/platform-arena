@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ion_cannon.wav-2a366882bf0ff80c6d814122d74ffedd.sample"
+
+[deps]
+
+source_file="res://sfx/ion_cannon.wav"
+dest_files=[ "res://.import/ion_cannon.wav-2a366882bf0ff80c6d814122d74ffedd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

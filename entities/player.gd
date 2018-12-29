@@ -129,6 +129,8 @@ func hit_effect(damage, dir):
 
 func take_damage(damage, dealt_by):
 	
+	if $sfx: $sfx.play()
+	
 	if GLOBAL.DAMAGE_DEBUG:
 		print("damage taken: %s" % damage)
 		

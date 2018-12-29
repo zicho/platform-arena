@@ -7,8 +7,13 @@ var shot_range = 2000
 
 func shoot(dir):
 	
-	cd_timer.connect("timeout", shooter, "can_shoot")
+	if not connected:
+		cd_timer.connect("timeout", shooter, "can_shoot")
+		connected = true
+		
 	if shooter.can_shoot:
+		
+		if $sfx: $sfx.play()
 		
 		ammo -= 1
 		

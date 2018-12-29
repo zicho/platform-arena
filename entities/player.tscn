@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://entities/player.gd" type="Script" id=1]
 [ext_resource path="res://gfx/player.png" type="Texture" id=2]
@@ -6,13 +6,14 @@
 [ext_resource path="res://gfx/healthbar_progress.png" type="Texture" id=4]
 [ext_resource path="res://gfx/progress_icon_armor.png" type="Texture" id=5]
 [ext_resource path="res://gfx/progress_icon_health.png" type="Texture" id=6]
+[ext_resource path="res://sfx/hit.wav" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 11, 11 )
 
-[node name="player" type="KinematicBody2D" groups=[
+[node name="player" type="KinematicBody2D" index="0" groups=[
 "players",
 ]]
 
@@ -145,5 +146,14 @@ text = "80"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="sfx" type="AudioStreamPlayer" parent="." index="7"]
+
+stream = ExtResource( 7 )
+volume_db = -12.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 

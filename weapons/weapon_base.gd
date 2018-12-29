@@ -20,6 +20,9 @@ var max_ammo # NOT USED!! MAY USE IF YOU WANT TO CHANGE AMMO MECHANICS SOMEHOW B
 
 func _ready():
 	
+	if $sfx:
+		$sfx.autoplay = false
+	
 	if ammo != 0: # every weapon except base rifle has ammo
 		max_ammo = ammo
 	
@@ -27,12 +30,13 @@ func _ready():
 	add_child(cd_timer)
 
 func shoot(dir):
-	
+
 	if not connected:
 		cd_timer.connect("timeout", shooter, "can_shoot")
 		connected = true
 	
 	if shooter.can_shoot:
+
 		if projectile:
 			if ammo > 0:
 				ammo -= 1
@@ -41,8 +45,11 @@ func shoot(dir):
 
 			bullet.shooter = self.shooter
 			bullet.damage = self.damage
-
+			
 			bullet._spawn(barrel.global_position, Vector2(dir.x, (dir.y + rand_range(-spread, spread))))
+			
+			if $sfx:
+				$sfx.play()
 
 		shooter.can_shoot = false
 		cd_timer.start()

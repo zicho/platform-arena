@@ -5,7 +5,7 @@
 [ext_resource path="res://ui/main_menu.gd" type="Script" id=3]
 [ext_resource path="res://ui/player_HUD.tscn" type="PackedScene" id=4]
 
-[node name="main" type="Node" index="0"]
+[node name="main" type="Node"]
 
 [node name="Container" type="ViewportContainer" parent="." index="0"]
 

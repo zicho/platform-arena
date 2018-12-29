@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://effects/frag_splat.gd" type="Script" id=1]
+[ext_resource path="res://sfx/frag_splat.wav" type="AudioStream" id=2]
 
 [sub_resource type="ParticlesMaterial" id=1]
 
@@ -67,5 +68,14 @@ normal_map = null
 h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Process Material", "Textures", "Time" ]
+
+[node name="sfx" type="AudioStreamPlayer" parent="." index="1"]
+
+stream = ExtResource( 2 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 
