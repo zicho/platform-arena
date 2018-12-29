@@ -54,7 +54,9 @@ func _process(delta):
 
 func shoot(dir):
 	
-	cd_timer.connect("timeout", shooter, "can_shoot")
+	if not connected:
+		cd_timer.connect("timeout", shooter, "can_shoot")
+		connected = true
 	
 	if shooter.can_shoot:
 		
@@ -88,7 +90,7 @@ func shoot(dir):
 					if do_damage:
 						do_damage = false
 						collider.take_damage(damage, get_parent())
-						collider.hit_effect(damage, shot_range)
+						collider.hit_effect(damage, dir.x)
 						damage_timer.start()
 						
 		else:

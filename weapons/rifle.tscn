@@ -6,7 +6,6 @@
 
 [node name="rifle" type="Node2D"]
 
-scale = Vector2( 0.4, 0.4 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 projectile = ExtResource( 2 )
@@ -18,12 +17,15 @@ ammo = -1
 
 [node name="barrel" type="Position2D" parent="." index="0"]
 
-position = Vector2( -1.65708, -9.9311 )
+position = Vector2( -0.804507, -3.36628 )
 _sections_unfolded = [ "Pause", "Transform" ]
 
 [node name="gfx" type="Sprite" parent="." index="1"]
 
 texture = ExtResource( 3 )
-_sections_unfolded = [ "Offset" ]
+_sections_unfolded = [ "Material", "Offset", "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 

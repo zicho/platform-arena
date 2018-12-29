@@ -4,9 +4,10 @@
 [ext_resource path="res://projectiles/rifle_projectile.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gfx/shotgun.png" type="Texture" id=3]
 
-[node name="shotgun" type="Node2D"]
+[node name="shotgun" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
 projectile = ExtResource( 2 )
 damage = 5
 display_name = "Weapon Name"
@@ -16,7 +17,6 @@ ammo = 24
 
 [node name="gfx" type="Sprite" parent="." index="0"]
 
-scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 

@@ -13,6 +13,7 @@ colors = PoolColorArray( 0.982763, 0.99798, 1, 1, 0, 0.600037, 0.679688, 1 )
 [node name="ion_cannon" type="Node2D"]
 
 script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
 projectile = null
 damage = 8
 display_name = "Weapon Name"
@@ -22,11 +23,15 @@ ammo = 200
 
 [node name="gfx" type="Sprite" parent="." index="0"]
 
-scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="barrel" type="Position2D" parent="." index="1"]
+
+position = Vector2( 0, -1.71711 )
 
 [node name="ray" type="RayCast2D" parent="." index="2"]
 
@@ -34,6 +39,9 @@ enabled = false
 exclude_parent = true
 cast_to = Vector2( 200, 0 )
 collision_mask = 9
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="trail" parent="." index="3" instance=ExtResource( 3 )]
 

@@ -29,7 +29,6 @@ weapon_ref = null
 
 [node name="gfx" type="Sprite" parent="." index="0"]
 
-scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Offset", "Transform" ]
 

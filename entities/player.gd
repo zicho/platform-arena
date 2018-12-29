@@ -56,12 +56,7 @@ func _ready():
 	update_hp(100)
 	update_armor(0)
 	connect("update_frags", GLOBAL, "update_frags")
-	fragged = false 
-	#weapon = preload("res://weapons/rocket_launcher.tscn").instance()
-	#weapon = preload("res://weapons/railgun.tscn").instance()
-	#weapon = preload("res://weapons/pulse_blaster.tscn").instance()
-	#weapon = preload("res://weapons/shotgun.tscn").instance()
-	#weapon = preload("res://weapons/ion_cannon.tscn").instance()
+	fragged = false
 	
 	if controlled_by == GLOBAL.PLAYERS.player1:
 		instance_name = "player"

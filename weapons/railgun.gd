@@ -29,6 +29,7 @@ func shoot(dir):
 			var collider = $ray.get_collider()
 			if collider != get_parent():
 				if collider.is_in_group("players"):
+					collider.hit_effect(damage, dir.x)
 					collider.take_damage(damage, get_parent())
 
 		var t = trail.instance()

@@ -13,6 +13,7 @@ var can_shoot = true
 var cd_timer = Timer.new()
 export var shot_delay = 0.2
 export var spread = 0.0
+var connected = false
 
 export var ammo = -1
 var max_ammo # NOT USED!! MAY USE IF YOU WANT TO CHANGE AMMO MECHANICS SOMEHOW BUT FOR NOW: NOT USED!!
@@ -26,9 +27,11 @@ func _ready():
 	add_child(cd_timer)
 
 func shoot(dir):
-
-	cd_timer.connect("timeout", shooter, "can_shoot")
-
+	
+	if not connected:
+		cd_timer.connect("timeout", shooter, "can_shoot")
+		connected = true
+	
 	if shooter.can_shoot:
 		if projectile:
 			if ammo > 0:

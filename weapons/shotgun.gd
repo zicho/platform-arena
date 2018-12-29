@@ -4,7 +4,9 @@ var pellets = 18
 
 func shoot(dir):
 
-	cd_timer.connect("timeout", shooter, "can_shoot")
+	if not connected:
+		cd_timer.connect("timeout", shooter, "can_shoot")
+		connected = true
 
 	if shooter.can_shoot:
 		ammo -= 1
