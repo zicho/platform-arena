@@ -29,7 +29,7 @@ var p2 = {
 }
 
 var p3 = {
-	"color": "00ff00",
+	"color": "32CD32",
 	"right": "p3_right",
 	"left": "p3_left",
 	"jump": "p3_jump",
@@ -40,12 +40,13 @@ var p3 = {
 
 
 var p4 = {
-	"color": "59B8FF",
-	"right": "p2_right",
-	"left": "p2_left",
-	"jump": "p2_jump",
-	"shoot": "p2_shoot",
-	"turnlock": "p2_turnlock"
+	"color": "FFD700",
+	"right": "p4_right",
+	"left": "p4_left",
+	"jump": "p4_jump",
+	"shoot": "p4_shoot",
+	"turnlock": "p4_turnlock",
+	"switch_weapon": "p4_switch_weapon",
 }
 
 # control elements
@@ -90,27 +91,22 @@ var p4_hud = {
 	"frag_icon": null
 }
 
-onready var NO_OF_PLAYERS = 2
+onready var NO_OF_PLAYERS = 4 # max 4
 enum PLAYERS { player1, player2, player3, player4 }
 
 var RESPAWN_TIME = 2
 var FRAG_LIMIT = 1
 
 func _ready():
-	
+
 	var main_menu = get_tree().get_root().get_node("main/main_menu")
 	
 	if main_menu: main_menu.initialize_HUD()
 
-#	respawn_timer.set_one_shot(true)
-#	respawn_timer.set_wait_time(respawn_delay)
-#
-#	add_child(respawn_timer)
-
 func update_frags(player_instance, value):
-	
+
 	var hud_to_update
-	
+
 	if player_instance == "player": hud_to_update = p1_hud 
 	elif player_instance == "player2": hud_to_update = p2_hud
 	elif player_instance == "player3": hud_to_update = p3_hud
@@ -155,7 +151,7 @@ func update_gui_hp(hp, player):
 	if hud_to_update["hp_value"]: hud_to_update["hp_value"].text = str(hp)
 
 func update_gui_armor(armor, armor_type, player):
-	
+
 	var p = player.instance_name
 	
 	var hud_to_update
@@ -166,7 +162,7 @@ func update_gui_armor(armor, armor_type, player):
 	elif p == "player4": hud_to_update = p4_hud
 
 	if hud_to_update["armor_value"]: hud_to_update["armor_value"].text = str(armor)
-	
+
 	if hud_to_update["armor_icon"]:
 		if armor_type == 0:
 			hud_to_update["armor_icon"].set_modulate("fffb00")
