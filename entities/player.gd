@@ -187,6 +187,8 @@ func take_damage(damage, dealt_by, weapon = null):
 			if dealt_by == self:
 				dealt_by.frags -= 1
 				emit_signal("update_frags", dealt_by.instance_name, dealt_by.frags)
+				GLOBAL.MESSAGE_LOG.append_bbcode("[color=#%s]%s[/color] grew tired of living." % [dealt_by.player.color, dealt_by.player.name])
+				GLOBAL.MESSAGE_LOG.newline()
 
 func add_armor(value, armor_type):
 

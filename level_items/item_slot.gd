@@ -14,8 +14,6 @@ func _ready():
 	respawn_timer.set_one_shot(true)
 	respawn_timer.connect("timeout", self, "spawn_item")
 	add_child(respawn_timer)
-	
-	
 
 func spawn_item():
 

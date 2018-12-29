@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="explosion" type="Node2D" index="0"]
+[node name="explosion" type="Node2D"]
 
 position = Vector2( 90, 90 )
 script = ExtResource( 1 )
