@@ -22,7 +22,7 @@ func shoot(dir):
 				bullet.damage = self.damage
 				bullet._spawn(barrel.global_position, Vector2(dir.x, (dir.y + rand_range(-spread, spread))))
 				
-				if $sfx: $sfx.play()
+				GLOBAL.SFX.play("shotgun")
 
 		shooter.can_shoot = false
 		cd_timer.start()

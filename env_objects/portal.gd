@@ -14,4 +14,4 @@ func _on_start_body_entered(body):
 		var fx = load("res://particles/player_appears.tscn").instance()
 		GLOBAL.level.add_child(fx) 
 		fx.global_position = dest.global_position
-		if $sfx: $sfx.play()
+		GLOBAL.SFX.play("portal")

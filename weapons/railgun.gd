@@ -13,7 +13,7 @@ func shoot(dir):
 		
 	if shooter.can_shoot:
 		
-		if $sfx: $sfx.play()
+		GLOBAL.SFX.play("railgun")
 		
 		ammo -= 1
 		

@@ -60,11 +60,8 @@ func shoot(dir):
 	
 	if shooter.can_shoot:
 		
-		if $sfx: 
-			if not $sfx.is_playing():
-				$sfx.play()
-			if not Input.is_action_pressed(shooter.player.shoot):
-				$sfx.set_volume_db  = 0
+		if not GLOBAL.SFX.get_node("ion_cannon").is_playing():
+			GLOBAL.SFX.play("ion_cannon")
 		
 		if decrease_ammo:
 			decrease_ammo = false

@@ -110,9 +110,13 @@ var FRAG_LIMIT = 1
 
 var MESSAGE_LOG
 
-var PLAY_SPAWN_SOUND = true # this is needed to not play the sound for spawning when game starts
+var PLAY_SPAWN_SOUND = false # this is needed to not play the sound for spawning when game starts
+
+var SFX = preload("res://helpers/sfx_library.tscn").instance()
 
 func _ready():
+	
+	add_child(SFX)
 	
 	p1.name = PLAYER_NAMES["player"]
 	p2.name = PLAYER_NAMES["player2"]

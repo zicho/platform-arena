@@ -19,10 +19,7 @@ export var ammo = -1
 var max_ammo # NOT USED!! MAY USE IF YOU WANT TO CHANGE AMMO MECHANICS SOMEHOW BUT FOR NOW: NOT USED!!
 
 func _ready():
-	
-	if $sfx:
-		$sfx.autoplay = false
-	
+
 	if ammo != 0: # every weapon except base rifle has ammo
 		max_ammo = ammo
 	
@@ -48,8 +45,8 @@ func shoot(dir):
 			
 			bullet._spawn(barrel.global_position, Vector2(dir.x, (dir.y + rand_range(-spread, spread))))
 			
-			if $sfx:
-				$sfx.play()
+			
+			GLOBAL.SFX.play(self.name)
 
 		shooter.can_shoot = false
 		cd_timer.start()

@@ -23,7 +23,6 @@ func _physics_process(delta):
 	else:
     	queue_free()
 		
-
 	splash_radius.get_overlapping_bodies()
 
 	if splash_radius.get_overlapping_bodies().size() > 0:
@@ -94,11 +93,7 @@ func _physics_process(delta):
 								
 
 	if not first_loop_done:
-		if $sfx: # this needs to be done so that the sound finishes after the explosion is gone
-			var sfx = $sfx.duplicate()
-			GLOBAL.level.add_child(sfx)
-			sfx.play()
-			
+		GLOBAL.SFX.play("explosion")
 		first_loop_done = true
 	else:
 		damage -= 5

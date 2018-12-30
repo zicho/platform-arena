@@ -30,7 +30,7 @@ onready var size = sprite.texture.get_size()
 var dirs = { "right": Vector2(1,0), "left": Vector2(-1, 0) }
 var active_dir 
 
-onready var weapon = preload("res://weapons/rifle.tscn").instance()
+onready var weapon = preload("res://weapons/machine_gun.tscn").instance()
 onready var secondary_weapon# = preload("res://weapons/shotgun.tscn").instance()
 
 var weapon_queue
@@ -129,7 +129,7 @@ func hit_effect(damage, dir):
 
 func take_damage(damage, dealt_by, weapon = null):
 	
-	if $hit_sfx: $hit_sfx.play()
+	GLOBAL.SFX.play("hit")
 	
 	if GLOBAL.DAMAGE_DEBUG:
 		print("damage taken: %s" % damage)
@@ -290,7 +290,7 @@ func jump_loop():
 	if can_jump && Input.is_action_just_pressed(player.jump):
 		jump_timer = JUMP_THRESHOLD
 		velocity.y -= JUMP_FORCE
-		if $jump_sfx: $jump_sfx.play()
+		GLOBAL.SFX.play("jump")
 
 func weapon_loop():
 
@@ -408,9 +408,9 @@ func switch_weapon(remove_old = false): # remove old uses to remove weapons whic
 #				if one gun goes empty, replace it with the standard rifle,
 #				if the rifle is not already in inventory
 				
-				var rifle = load("res://weapons/rifle.tscn")
-				if not has_weapon(rifle):
-					secondary_weapon = load("res://weapons/rifle.tscn").instance()
+				var m_gun = load("res://weapons/machine_gun.tscn")
+				if not has_weapon(m_gun):
+					secondary_weapon = m_gun.instance()
 				else:
 					secondary_weapon = null
 					

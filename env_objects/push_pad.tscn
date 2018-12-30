@@ -1,15 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://env_objects/push_pad.gd" type="Script" id=1]
 [ext_resource path="res://gfx/jump_pad.png" type="Texture" id=2]
-[ext_resource path="res://sfx/jump_and_push_pad.wav" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 1.5, 9 )
 
-[node name="push_pad" type="Node2D"]
+[node name="push_pad" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
@@ -43,15 +42,6 @@ z_index = -5
 texture = ExtResource( 2 )
 offset = Vector2( 0, 6 )
 _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
-
-[node name="sfx" type="AudioStreamPlayer" parent="." index="1"]
-
-stream = ExtResource( 3 )
-volume_db = -14.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
 
 [connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
 

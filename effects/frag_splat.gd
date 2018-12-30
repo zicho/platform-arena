@@ -10,7 +10,7 @@ func _ready():
 	timer.set_wait_time($fx.lifetime)
 	timer.connect("timeout", self, "destroy")
 	timer.start()
-	if $sfx: $sfx.play()
+	GLOBAL.SFX.play("frag_splat")
 	
 func destroy():
 	queue_free()

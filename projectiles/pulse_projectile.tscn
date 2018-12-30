@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 3, 2 )
 
-[node name="pulse_projectile" type="Area2D" index="0"]
+[node name="pulse_projectile" type="Area2D"]
 
 modulate = Color( 0.820313, 0.5, 1, 1 )
 input_pickable = true
