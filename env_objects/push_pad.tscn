@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 1.5, 9 )
 
-[node name="push_pad" type="Node2D" index="0"]
+[node name="push_pad" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
@@ -34,7 +34,7 @@ z_index = 7
 shape = SubResource( 1 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="Sprite" type="Sprite" parent="area" index="1"]
+[node name="gfx" type="Sprite" parent="area" index="1"]
 
 position = Vector2( 0.432302, 6.46338 )
 rotation = 1.5708

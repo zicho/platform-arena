@@ -6,7 +6,7 @@ var ray_hit = Vector2()
 var shot_range = 2000
 
 func shoot(dir):
-	
+
 	if not connected:
 		cd_timer.connect("timeout", shooter, "can_shoot")
 		connected = true
@@ -14,7 +14,7 @@ func shoot(dir):
 	if shooter.can_shoot:
 		
 		GLOBAL.SFX.play("railgun")
-		
+
 		ammo -= 1
 		
 		$ray.global_position = $barrel.global_position
@@ -28,6 +28,16 @@ func shoot(dir):
 		$ray.force_raycast_update()
 		
 		ray_hit = $ray.get_collision_point()
+		
+		var hit_effect = load("res://particles/rail_hit.tscn").instance()
+		GLOBAL.level.add_child(hit_effect)
+		hit_effect.emitting = true
+		hit_effect.global_position = ray_hit
+		hit_effect.set_modulate(shooter.player.color)
+		hit_effect.get_node("anim").play("fade")
+		
+		if dir.x > 0:
+			hit_effect.scale = Vector2(-1,1)
 		
 		if $ray.is_colliding():
 

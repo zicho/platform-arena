@@ -13,10 +13,12 @@ func entered(body):
 		elif body.weapon.get_filename() == weapon_ref.get_path():
 			body.weapon.ammo = weapon_ref.instance().ammo
 			.picked_up()
+			GLOBAL.SFX.play("weapon_pickup")
 			
 		elif body.secondary_weapon.get_filename() == weapon_ref.get_path():
 			body.secondary_weapon.ammo = weapon_ref.instance().ammo
 			.picked_up()
+			GLOBAL.SFX.play("weapon_pickup")
 
 func exited(body):
 	if body.is_in_group("players"):

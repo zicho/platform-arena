@@ -8,7 +8,7 @@ func _ready():
 
 func _on_start_body_entered(body):
 	if body.is_in_group("players"):
-		
+
 		body.push_force = 0
 		body.global_position = dest.global_position
 		var fx = load("res://particles/player_appears.tscn").instance()

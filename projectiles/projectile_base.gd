@@ -14,11 +14,11 @@ func _spawn(_pos, _dir):
 		$gfx.flip_h = true
 	else:
 		$gfx.flip_h = false
-		
+
 func _physics_process(delta):
 	
 	motion = motion.normalized() * speed
 	global_position += motion * delta 
-	
+
 func destroy():
 	queue_free()

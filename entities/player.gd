@@ -115,11 +115,7 @@ func hit_effect(damage, dir):
 		var blood = load("res://effects/hit_effect.tscn").instance()
 		
 		if dir < 0:
-			blood.rotation_degrees = 180
-			blood.find_node("fx").process_material.gravity.y = -900
-		else:
-			blood.rotation_degrees = 0
-			blood.find_node("fx").process_material.gravity.y = 900
+			blood.scale = Vector2(-1, 1)
 		
 		blood.find_node("fx").emitting = true
 		blood.position.x = self.position.x + 12
@@ -388,6 +384,7 @@ func switch_weapon(remove_old = false): # remove old uses to remove weapons whic
 			a.picked_up()
 			on_pickup = true
 			weapon_queue = null
+			GLOBAL.SFX.play("weapon_pickup")
 
 	if not on_pickup and secondary_weapon != null:
 

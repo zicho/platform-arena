@@ -61,7 +61,7 @@ bus = "Master"
 [node name="frag_splat" type="AudioStreamPlayer" parent="." index="4"]
 
 stream = ExtResource( 6 )
-volume_db = 0.0
+volume_db = 12.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
@@ -79,7 +79,7 @@ bus = "Master"
 [node name="ion_cannon" type="AudioStreamPlayer" parent="." index="6"]
 
 stream = ExtResource( 8 )
-volume_db = 0.0
+volume_db = -12.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0

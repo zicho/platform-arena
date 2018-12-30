@@ -48,7 +48,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Color", "Emission Shape", "Gravity", "Spread", "Trail" ]
 
-[node name="jump_pad" type="Node2D"]
+[node name="jump_pad" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -71,13 +71,13 @@ _sections_unfolded = [ "Collision" ]
 position = Vector2( -0.00763321, 6.50326 )
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="area" index="1"]
+[node name="gfx" type="Sprite" parent="area" index="1"]
 
 z_index = -1
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Z Index" ]
 
-[node name="Particles2D" type="Particles2D" parent="area" index="2"]
+[node name="fx" type="Particles2D" parent="area" index="2"]
 
 position = Vector2( -0.385536, 3.46983 )
 z_index = -2

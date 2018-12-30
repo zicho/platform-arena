@@ -13,7 +13,7 @@ var damage_cooldown = 0.1
 var do_damage = true
 
 var ammo_timer = Timer.new()
-var ammo_cooldown = 0.025
+var ammo_cooldown = 0.05
 var decrease_ammo = true
 
 func _ready():
