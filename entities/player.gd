@@ -44,7 +44,6 @@ signal armor_changed(value)
 var armor
 var armor_type = GLOBAL.armor_types.red
 
-var frags = 0
 signal update_frags(player_instance, value)
 
 var test_damage = 100
@@ -52,7 +51,9 @@ var test_damage = 100
 var respawn_timer = Timer.new()
 
 func _ready():
-
+	
+	
+	
 	update_hp(100)
 	update_armor(0)
 	connect("update_frags", GLOBAL, "update_frags")
@@ -103,10 +104,11 @@ func spawn():
 	var spawn_points = get_tree().get_nodes_in_group("spawn_points")
 	randomize()
 	var spawn = spawn_points[randi() % spawn_points.size()]
-
+	
 	var p = load("res://particles/player_appears.tscn").instance()
 	GLOBAL.level.add_child(p)
-	p.global_position = spawn.get_node("spawn_pos").global_position
+	p.global_position = spawn.get_node("spawn_pos").global_position + Vector2(12, 12)
+	p.set_modulate(player.color)
 	global_position = spawn.get_node("spawn_pos").global_position
 
 func hit_effect(damage, dir):
@@ -168,23 +170,24 @@ func take_damage(damage, dealt_by, weapon = null):
 		update_hp(hp - damage)
 	
 	if hp <= 0:
-		
+
 		if dealt_by:
 			update_armor(0)
 			
 			if dealt_by != self and not fragged:
 				fragged = true
-				dealt_by.frags += 1
-				emit_signal("update_frags", dealt_by.instance_name, dealt_by.frags)
+				dealt_by.player.frags += 1
 				#GLOBAL.score_frag(dealt_by)
 				GLOBAL.MESSAGE_LOG.append_bbcode("[color=#%s]%s[/color] killed [color=#%s]%s[/color]" % [dealt_by.player.color, dealt_by.player.name, self.player.color, self.player.name])
 				GLOBAL.MESSAGE_LOG.newline()
-			
-			if dealt_by == self:
-				dealt_by.frags -= 1
-				emit_signal("update_frags", dealt_by.instance_name, dealt_by.frags)
+
+			if dealt_by == self and not fragged:
+				dealt_by.fragged = true
+				dealt_by.player.frags -= 1
 				GLOBAL.MESSAGE_LOG.append_bbcode("[color=#%s]%s[/color] grew tired of living." % [dealt_by.player.color, dealt_by.player.name])
 				GLOBAL.MESSAGE_LOG.newline()
+
+			emit_signal("update_frags", dealt_by.instance_name, dealt_by.player.frags)
 
 func add_armor(value, armor_type):
 

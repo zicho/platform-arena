@@ -17,6 +17,7 @@ var p1 = {
 	"shoot": "p1_shoot",
 	"turnlock": "p1_turnlock",
 	"switch_weapon": "p1_switch_weapon",
+	"frags": 0
 }
 
 var p2 = {
@@ -28,6 +29,7 @@ var p2 = {
 	"shoot": "p2_shoot",
 	"turnlock": "p2_turnlock",
 	"switch_weapon": "p2_switch_weapon",
+	"frags": 0
 }
 
 var p3 = {
@@ -39,6 +41,7 @@ var p3 = {
 	"shoot": "p3_shoot",
 	"turnlock": "p3_turnlock",
 	"switch_weapon": "p3_switch_weapon",
+	"frags": 0
 }
 
 
@@ -51,6 +54,7 @@ var p4 = {
 	"shoot": "p4_shoot",
 	"turnlock": "p4_turnlock",
 	"switch_weapon": "p4_switch_weapon",
+	"frags": 0
 }
 
 # control elements
@@ -95,7 +99,7 @@ var p4_hud = {
 	"frag_icon": null
 }
 
-onready var NO_OF_PLAYERS = 4 # max 4
+onready var NO_OF_PLAYERS = 2 # max 4
 enum PLAYERS { player1, player2, player3, player4 }
 
 var PLAYER_NAMES = { 
@@ -109,8 +113,6 @@ var RESPAWN_TIME = 2
 var FRAG_LIMIT = 1
 
 var MESSAGE_LOG
-
-var PLAY_SPAWN_SOUND = false # this is needed to not play the sound for spawning when game starts
 
 var SFX = preload("res://helpers/sfx_library.tscn").instance()
 
@@ -127,7 +129,7 @@ func _ready():
 	
 	if main_menu: main_menu.initialize_HUD()
 	
-	MESSAGE_LOG = get_tree().get_root().get_node("main/main_menu/messages/message_log")
+	MESSAGE_LOG = get_tree().get_root().get_node("main/interface/interface_panel/PLAYER_HUDS/message_log")
 
 func update_frags(player_instance, value):
 
@@ -157,9 +159,6 @@ func spawn_initial_players():
 
 		assign_player += 1
 		player.spawn()
-
-	PLAY_SPAWN_SOUND = true	# after initial spawn, we wanna play it
-
 
 func respawn_player(controlled_by):
 	var player = load("res://entities/player.tscn").instance()

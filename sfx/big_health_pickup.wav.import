@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/big_health_pickup.wav-70f95b13d30682db570cb5c61b3f5d9e.sample"
+
+[deps]
+
+source_file="res://sfx/big_health_pickup.wav"
+dest_files=[ "res://.import/big_health_pickup.wav-70f95b13d30682db570cb5c61b3f5d9e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

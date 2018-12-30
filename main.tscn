@@ -1,15 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/game_scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/level1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/main_menu.gd" type="Script" id=3]
-[ext_resource path="res://ui/player_HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://music/reflex.ogg" type="AudioStream" id=5]
+[ext_resource path="res://ui/interface.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/player_display.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/player_HUD.gd" type="Script" id=6]
 
-[node name="main" type="Node"]
+[node name="main" type="Node" index="0"]
 
 [node name="Container" type="ViewportContainer" parent="." index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -91,6 +93,7 @@ _sections_unfolded = [ "Anchor", "BBCode", "Focus", "Hint", "Rect", "Size Flags"
 
 [node name="main_menu" type="PanelContainer" parent="." index="1"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -109,6 +112,7 @@ _sections_unfolded = [ "Rect" ]
 
 [node name="player_huds" type="Panel" parent="main_menu" index="0"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -123,46 +127,9 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Grow Direction", "Rect" ]
 
-[node name="player_HUD" parent="main_menu/player_huds" index="0" groups=[
-"player_HUD",
-] instance=ExtResource( 4 )]
-
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 175.0
-margin_bottom = 99.0
-
-[node name="player_HUD2" parent="main_menu/player_huds" index="1" groups=[
-"player_HUD",
-] instance=ExtResource( 4 )]
-
-margin_left = 175.0
-margin_top = 7.0
-margin_right = 343.0
-margin_bottom = 99.0
-
-[node name="player_HUD3" parent="main_menu/player_huds" index="2" groups=[
-"player_HUD",
-] instance=ExtResource( 4 )]
-
-editor/display_folded = true
-margin_left = 343.0
-margin_top = 7.0
-margin_right = 511.0
-margin_bottom = 99.0
-
-[node name="player_HUD4" parent="main_menu/player_huds" index="3" groups=[
-"player_HUD",
-] instance=ExtResource( 4 )]
-
-editor/display_folded = true
-margin_left = 511.0
-margin_top = 7.0
-margin_right = 679.0
-margin_bottom = 99.0
-
-[node name="messages" type="Container" parent="main_menu" index="1"]
+[node name="info_hud" type="Panel" parent="main_menu" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -178,23 +145,129 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Grow Direction" ]
 
-[node name="message_log" type="RichTextLabel" parent="main_menu/messages" index="0"]
+[node name="info_container" type="PanelContainer" parent="main_menu/info_hud" index="0"]
 
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -502.0
-margin_top = -91.0
-margin_right = -226.0
-margin_bottom = -1.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 7.0
+margin_right = 14.0
+margin_bottom = 47.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="msg_panel" type="Panel" parent="main_menu/info_hud/info_container" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 7.0
+margin_bottom = 33.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="interface" type="PanelContainer" parent="." index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 960.0
+margin_right = 1200.0
+margin_bottom = 1080.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="interface_panel" type="Panel" parent="interface" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1193.0
+margin_bottom = 113.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="PLAYER_HUDS" parent="interface/interface_panel" index="0" instance=ExtResource( 4 )]
+
+margin_left = 5.0
+margin_top = 59.0
+margin_right = 221.0
+margin_bottom = 99.0
+
+[node name="player_display" parent="interface/interface_panel/PLAYER_HUDS" index="0" groups=[
+"player_HUD",
+] instance=ExtResource( 5 )]
+
+script = ExtResource( 6 )
+
+[node name="player_display2" parent="interface/interface_panel/PLAYER_HUDS" index="1" groups=[
+"player_HUD",
+] instance=ExtResource( 5 )]
+
+margin_left = 150.0
+margin_right = 300.0
+script = ExtResource( 6 )
+
+[node name="player_display3" parent="interface/interface_panel/PLAYER_HUDS" index="2" groups=[
+"player_HUD",
+] instance=ExtResource( 5 )]
+
+margin_left = 300.0
+margin_right = 450.0
+script = ExtResource( 6 )
+
+[node name="player_display4" parent="interface/interface_panel/PLAYER_HUDS" index="3" groups=[
+"player_HUD",
+] instance=ExtResource( 5 )]
+
+margin_left = 450.0
+margin_right = 600.0
+script = ExtResource( 6 )
+
+[node name="message_log" type="RichTextLabel" parent="interface/interface_panel/PLAYER_HUDS" index="4"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 608.0
+margin_top = 6.0
+margin_right = 1092.0
+margin_bottom = 82.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+custom_constants/line_separation = 4
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
@@ -206,15 +279,6 @@ scroll_active = false
 scroll_following = true
 selection_enabled = false
 override_selected_font_color = false
-_sections_unfolded = [ "Anchor", "BBCode" ]
-
-[node name="music" type="AudioStreamPlayer" parent="." index="2"]
-
-stream = ExtResource( 5 )
-volume_db = 0.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
+_sections_unfolded = [ "Anchor", "BBCode", "custom_colors", "custom_constants" ]
 
 

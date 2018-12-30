@@ -8,11 +8,11 @@
 
 script = ExtResource( 1 )
 projectile = ExtResource( 2 )
-damage = 20
+damage = 16
 display_name = "Weapon Name"
 shot_delay = 0.16
 spread = 0.015
-ammo = 60
+ammo = 80
 
 [node name="gfx" type="Sprite" parent="." index="0"]
 

@@ -58,7 +58,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[node name="rail_hit" type="Particles2D" index="0"]
+[node name="rail_hit" type="Particles2D"]
 
 emitting = false
 amount = 16

@@ -88,9 +88,8 @@ func _physics_process(delta):
 						if collider.is_in_group("players"):
 							if not players_hit.has(collider):
 								players_hit.append(collider)
-								b.hit_effect(damage, b.global_position.x - global_position.x)
-								b.take_damage(damage, shooter)
-								
+								collider.hit_effect(damage, b.global_position.x - global_position.x)
+								collider.take_damage(damage, shooter)
 
 	if not first_loop_done:
 		GLOBAL.SFX.play("explosion")
