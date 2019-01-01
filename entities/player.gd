@@ -345,9 +345,16 @@ func weapon_loop():
 	if Input.is_action_just_pressed(player.switch_weapon):
 
 		if can_shoot:
-			switch_weapon()			
+			switch_weapon()
 		else:
 			weapon_queue = secondary_weapon
+			
+	if Input.is_action_just_pressed(player.pick_up_weapon):
+		if can_shoot:
+			pick_up_weapon()
+
+		else:
+			weapon_queue = secondary_weapon		
 
 	if weapon.ammo == 0:
 		switch_weapon(true) # removes old empty weapon
@@ -386,17 +393,26 @@ func _process(delta):
 #	if Input.is_action_just_pressed("ui_accept"):
 #		take_damage(100, self)
 
-func pick_up_weapon(weapon):
+func pick_up_weapon():
 
-	if can_shoot:
-		if secondary_weapon == null:
-			secondary_weapon = self.weapon
+	var weapon = null
+	
+	for a in get_tree().get_nodes_in_group("weapon_pickups"):
+
+		if a.player_is_on_pickup(self):
+			weapon = a.weapon_ref.instance()
+			a.picked_up()
+			weapon_queue = null
+			GLOBAL.SFX.play("weapon_pickup")
+
+			if can_shoot:
+				if secondary_weapon == null:
+					secondary_weapon = self.weapon
 			
-		remove_child(self.weapon)
-		self.weapon = weapon
-		add_child(weapon)
-	else:
-		weapon_queue = weapon	
+			remove_child(self.weapon)
+			self.weapon = weapon
+			add_child(weapon)
+			turn_weapon_sprite()
 
 func has_weapon(weapon_ref):
 	
@@ -409,18 +425,7 @@ func has_weapon(weapon_ref):
 
 func switch_weapon(remove_old = false): # remove old uses to remove weapons which are out of ammo
 
-	var on_pickup = false
-
-	for a in get_tree().get_nodes_in_group("weapon_pickups"):
-
-		if a.player_is_on_pickup(self):
-			pick_up_weapon(a.weapon_ref.instance())
-			a.picked_up()
-			on_pickup = true
-			weapon_queue = null
-			GLOBAL.SFX.play("weapon_pickup")
-
-	if not on_pickup and secondary_weapon != null:
+	if secondary_weapon != null:
 
 		weapon_queue = null
 

@@ -17,6 +17,7 @@ var p1 = {
 	"shoot": "p1_shoot",
 	"turnlock": "p1_turnlock",
 	"switch_weapon": "p1_switch_weapon",
+	"pick_up_weapon": "p1_pick_up_weapon",
 	"frags": 0
 }
 
@@ -29,6 +30,7 @@ var p2 = {
 	"shoot": "p2_shoot",
 	"turnlock": "p2_turnlock",
 	"switch_weapon": "p2_switch_weapon",
+	"pick_up_weapon": "p2_pick_up_weapon",
 	"frags": 0
 }
 
@@ -41,6 +43,7 @@ var p3 = {
 	"shoot": "p3_shoot",
 	"turnlock": "p3_turnlock",
 	"switch_weapon": "p3_switch_weapon",
+	"pick_up_weapon": "p3_pick_up_weapon",
 	"frags": 0
 }
 

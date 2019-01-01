@@ -3,7 +3,7 @@ extends "res://level_items/weapons/weapon_pickup_base.gd"
 func _ready():
 	weapon_name = "SHOTGUN"
 	weapon_ref = preload("res://weapons/shotgun.tscn")
-	$info.text = "Press SWITCH WEAPON to pick up %s" % weapon_name
+	$info.text = "Press PICK UP WEAPON to pick up %s" % weapon_name
 
 func _on_shotgun_pickup_body_entered(body):
 	.entered(body)
