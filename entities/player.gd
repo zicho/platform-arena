@@ -353,9 +353,6 @@ func weapon_loop():
 		if can_shoot:
 			pick_up_weapon()
 
-		else:
-			weapon_queue = secondary_weapon		
-
 	if weapon.ammo == 0:
 		switch_weapon(true) # removes old empty weapon
 

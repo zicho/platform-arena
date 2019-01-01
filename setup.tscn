@@ -2,7 +2,7 @@
 
 [ext_resource path="res://setup.gd" type="Script" id=1]
 
-[node name="setup" type="PanelContainer" index="0"]
+[node name="setup" type="PanelContainer"]
 
 anchor_left = 0.0
 anchor_top = 0.0

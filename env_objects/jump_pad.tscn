@@ -3,7 +3,7 @@
 [ext_resource path="res://env_objects/jump_pad.gd" type="Script" id=1]
 [ext_resource path="res://gfx/jump_pad.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 9, 1.5 )
@@ -48,7 +48,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Color", "Emission Shape", "Gravity", "Spread", "Trail" ]
 
-[node name="jump_pad" type="Node2D" index="0"]
+[node name="jump_pad" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -69,7 +69,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="shape" type="CollisionShape2D" parent="area" index="0"]
 
 position = Vector2( -0.00763321, 6.50326 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="gfx" type="Sprite" parent="area" index="1"]
 
