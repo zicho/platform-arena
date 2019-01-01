@@ -17,9 +17,10 @@ func _ready():
 
 func spawn_item():
 
-	held_item = item_to_spawn.instance()
-	get_parent().add_child(held_item)
-	held_item._spawn(spawn_pos, self)
+	if GLOBAL.GAME_ACTIVE:
+		held_item = item_to_spawn.instance()
+		get_parent().add_child(held_item)
+		held_item._spawn(spawn_pos, self)
 
 func item_picked(item):
 	if item == self.held_item:
