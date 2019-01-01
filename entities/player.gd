@@ -50,10 +50,11 @@ var test_damage = 100
 
 var respawn_timer = Timer.new()
 
+var no_damage_timer = Timer.new() # used when respawning to prevent you from taking instant damage
+var can_take_damage = true
+
 func _ready():
-	
-	
-	
+
 	update_hp(100)
 	update_armor(0)
 	connect("update_frags", GLOBAL, "update_frags")
@@ -94,6 +95,11 @@ func _ready():
 	respawn_timer.set_one_shot(true)
 	respawn_timer.connect("timeout", GLOBAL, "respawn_player", [controlled_by])
 	GLOBAL.add_child(respawn_timer)
+	
+	no_damage_timer.set_wait_time(GLOBAL.NO_DAMAGE_AFTER_SPAWN_TIME)
+	no_damage_timer.set_one_shot(true)
+	no_damage_timer.connect("timeout", self, "can_take_damage")
+	add_child(no_damage_timer)
 
 func spawn():
 
@@ -110,20 +116,31 @@ func spawn():
 	p.global_position = spawn.get_node("spawn_pos").global_position + Vector2(12, 12)
 	p.set_modulate(player.color)
 	global_position = spawn.get_node("spawn_pos").global_position
+	
+	can_take_damage = false
+	no_damage_timer.start()
+	
+	$spawn_marker/anim.connect("animation_finished", self, "remove_spawn_marker")
+	$spawn_marker.set_modulate(player.color)
+	$spawn_marker/anim.play("bounce")
+
+func remove_spawn_marker(anim_name):
+	$spawn_marker.queue_free()
 
 func hit_effect(damage, dir):
-	for b in range(damage / 5):
-		
-		var blood = load("res://effects/hit_effect.tscn").instance()
-		
-		if dir < 0:
-			blood.scale = Vector2(-1, 1)
-		
-		blood.find_node("fx").emitting = true
-		blood.position.x = self.position.x + 12
-		blood.position.y = self.position.y + 12
-		blood.set_modulate(player.color)
-		GLOBAL.level.add_child(blood)
+	if can_take_damage:
+		for b in range(damage / 5):
+			
+			var blood = load("res://effects/hit_effect.tscn").instance()
+			
+			if dir < 0:
+				blood.scale = Vector2(-1, 1)
+			
+			blood.find_node("fx").emitting = true
+			blood.position.x = self.position.x + 12
+			blood.position.y = self.position.y + 12
+			blood.set_modulate(player.color)
+			GLOBAL.level.add_child(blood)
 
 func take_damage(damage, dealt_by, weapon = null):
 	
@@ -134,60 +151,64 @@ func take_damage(damage, dealt_by, weapon = null):
 		
 		print("hp is: %s" % hp)
 		print("armor is: %s of type %s" % [armor, armor_type])
-
-	if armor > 0:
-
-		var calculated_damage = 0
-		var current_armor = armor
-
-		if armor_type == GLOBAL.armor_types.yellow:
-			for d in damage:
-				if current_armor > 0:
-					calculated_damage += 1.0 / 3
-					current_armor -= 1
-				else:
-					calculated_damage += 1
-
-		if armor_type == GLOBAL.armor_types.red:
-			for d in damage:
-				if current_armor > 0:
-					calculated_damage += 1.0 / 4
-					current_armor -= 1
-				else:
-					calculated_damage += 1
-
-		if calculated_damage > armor:
-			update_armor(0)
-		else:
-			if armor_type == GLOBAL.armor_types.yellow:
-				update_armor(armor - calculated_damage * 2)
-			if armor_type == GLOBAL.armor_types.red:
-				update_armor(armor - calculated_damage * 3)
-
-		update_hp(hp - calculated_damage)
-
-	else:
-		update_hp(hp - damage)
+		
+	if can_take_damage:
+		if armor > 0:
 	
-	if hp <= 0:
-
-		if dealt_by:
-			update_armor(0)
-			
-			if dealt_by != self and not fragged:
-				fragged = true
-				dealt_by.player.frags += 1
-				#GLOBAL.score_frag(dealt_by)
-				GLOBAL.MESSAGE_LOG.append_bbcode("[color=#%s]%s[/color] killed [color=#%s]%s[/color]" % [dealt_by.player.color, dealt_by.player.name, self.player.color, self.player.name])
-				GLOBAL.MESSAGE_LOG.newline()
-
-			if dealt_by == self and not fragged:
-				dealt_by.fragged = true
-				dealt_by.player.frags -= 1
-				GLOBAL.MESSAGE_LOG.append_bbcode("[color=#%s]%s[/color] grew tired of living." % [dealt_by.player.color, dealt_by.player.name])
-				GLOBAL.MESSAGE_LOG.newline()
-
-			emit_signal("update_frags", dealt_by.instance_name, dealt_by.player.frags)
+			var calculated_damage = 0
+			var current_armor = armor
+	
+			if armor_type == GLOBAL.armor_types.yellow:
+				for d in damage:
+					if current_armor > 0:
+						calculated_damage += 1.0 / 3
+						current_armor -= 1
+					else:
+						calculated_damage += 1
+	
+			if armor_type == GLOBAL.armor_types.red:
+				for d in damage:
+					if current_armor > 0:
+						calculated_damage += 1.0 / 4
+						current_armor -= 1
+					else:
+						calculated_damage += 1
+	
+			if calculated_damage > armor:
+				update_armor(0)
+			else:
+				if armor_type == GLOBAL.armor_types.yellow:
+					update_armor(armor - calculated_damage * 2)
+				if armor_type == GLOBAL.armor_types.red:
+					update_armor(armor - calculated_damage * 3)
+	
+			update_hp(hp - calculated_damage)
+	
+		else:
+			update_hp(hp - damage)
+		
+		if hp <= 0:
+	
+			if dealt_by:
+				update_armor(0)
+				
+				if dealt_by != self and not fragged:
+					fragged = true
+					dealt_by.player.frags += 1
+					#GLOBAL.score_frag(dealt_by)
+					#GLOBAL.MESSAGE_LOG.append_bbcode("[color=#%s]%s[/color] killed [color=#%s]%s[/color]" % [dealt_by.player.color, dealt_by.player.name, self.player.color, self.player.name])
+					#GLOBAL.MESSAGE_LOG.newline()
+	
+				if dealt_by == self and not fragged:
+					dealt_by.fragged = true
+					dealt_by.player.frags -= 1
+					#GLOBAL.MESSAGE_LOG.append_bbcode("[color=#%s]%s[/color] grew tired of living." % [dealt_by.player.color, dealt_by.player.name])
+					#GLOBAL.MESSAGE_LOG.newline()
+	
+				emit_signal("update_frags", dealt_by.instance_name, dealt_by.player.frags)
+				
+				if dealt_by.player.frags == GLOBAL.FRAG_LIMIT or dealt_by.player.frags > GLOBAL.FRAG_LIMIT:
+					GLOBAL.player_wins(dealt_by.player.name, dealt_by.player.color)
 
 func add_armor(value, armor_type):
 
@@ -300,6 +321,7 @@ func weapon_loop():
 		weapon.global_position = hands.global_position
 
 		if Input.is_action_pressed(player.shoot):
+			can_take_damage()
 			weapon.shooter = self
 			weapon.shoot(active_dir)
 
@@ -330,6 +352,14 @@ func weapon_loop():
 	if weapon.ammo == 0:
 		switch_weapon(true) # removes old empty weapon
 
+func spawn_loop():
+	
+	if not can_take_damage:
+		if not $anim.is_playing():
+			$anim.play("no_damage")
+	else:
+		$anim.stop()
+		
 func gui_loop():
 	if armor <= 0:
 		$armor_bar.visible = false
@@ -345,12 +375,13 @@ func gui_loop():
 		$ammo_label.visible = true
 
 func _process(delta):
-
-	push_loop(delta)
-	move_loop(delta)
-	jump_loop()
-	weapon_loop()
-	gui_loop()
+	if GLOBAL.GAME_ACTIVE:
+		push_loop(delta)
+		move_loop(delta)
+		jump_loop()
+		weapon_loop()
+		spawn_loop()
+		gui_loop()
 
 #	if Input.is_action_just_pressed("ui_accept"):
 #		take_damage(100, self)
@@ -454,4 +485,7 @@ func push(force, duration):
 	push_active_timer.start()
 
 func push_ended():
-	push_active = false	
+	push_active = false
+
+func can_take_damage():
+	can_take_damage = true

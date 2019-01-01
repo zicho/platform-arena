@@ -1,13 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scenes/game_scene.tscn" type="PackedScene" id=1]
-[ext_resource path="res://levels/level1.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ui/main_menu.gd" type="Script" id=3]
-[ext_resource path="res://ui/interface.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ui/player_display.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ui/player_HUD.gd" type="Script" id=6]
+[ext_resource path="res://main.gd" type="Script" id=1]
+[ext_resource path="res://scenes/game_scene.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/level1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/main_menu.gd" type="Script" id=4]
+[ext_resource path="res://ui/interface.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/player_display.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ui/player_HUD.gd" type="Script" id=7]
 
-[node name="main" type="Node" index="0"]
+[node name="main" type="Node"]
+
+script = ExtResource( 1 )
 
 [node name="Container" type="ViewportContainer" parent="." index="0"]
 
@@ -56,9 +59,9 @@ shadow_atlas_quad_1 = 2
 shadow_atlas_quad_2 = 3
 shadow_atlas_quad_3 = 4
 
-[node name="game_scene" parent="Container/Viewport" index="0" instance=ExtResource( 1 )]
+[node name="game_scene" parent="Container/Viewport" index="0" instance=ExtResource( 2 )]
 
-level = ExtResource( 2 )
+level = ExtResource( 3 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Container" index="1"]
 
@@ -93,6 +96,7 @@ _sections_unfolded = [ "Anchor", "BBCode", "Focus", "Hint", "Rect", "Size Flags"
 
 [node name="main_menu" type="PanelContainer" parent="." index="1"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -107,7 +111,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 _sections_unfolded = [ "Rect" ]
 
 [node name="player_huds" type="Panel" parent="main_menu" index="0"]
@@ -182,6 +186,7 @@ size_flags_vertical = 1
 
 [node name="interface" type="PanelContainer" parent="." index="2"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -213,7 +218,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="PLAYER_HUDS" parent="interface/interface_panel" index="0" instance=ExtResource( 4 )]
+[node name="PLAYER_HUDS" parent="interface/interface_panel" index="0" instance=ExtResource( 5 )]
 
 margin_left = 5.0
 margin_top = 59.0
@@ -222,33 +227,33 @@ margin_bottom = 99.0
 
 [node name="player_display" parent="interface/interface_panel/PLAYER_HUDS" index="0" groups=[
 "player_HUD",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 6 )]
 
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="player_display2" parent="interface/interface_panel/PLAYER_HUDS" index="1" groups=[
 "player_HUD",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 6 )]
 
 margin_left = 150.0
 margin_right = 300.0
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="player_display3" parent="interface/interface_panel/PLAYER_HUDS" index="2" groups=[
 "player_HUD",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 6 )]
 
 margin_left = 300.0
 margin_right = 450.0
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="player_display4" parent="interface/interface_panel/PLAYER_HUDS" index="3" groups=[
 "player_HUD",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 6 )]
 
 margin_left = 450.0
 margin_right = 600.0
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="message_log" type="RichTextLabel" parent="interface/interface_panel/PLAYER_HUDS" index="4"]
 
@@ -280,5 +285,68 @@ scroll_following = true
 selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "Anchor", "BBCode", "custom_colors", "custom_constants" ]
+
+[node name="win_label" type="PanelContainer" parent="." index="3"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -426.0
+margin_top = -249.0
+margin_right = 426.0
+margin_bottom = -3.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Panel" type="Panel" parent="win_label" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 845.0
+margin_bottom = 239.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="win_label_text" type="RichTextLabel" parent="win_label/Panel" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -140.0
+margin_top = -26.0
+margin_right = -42.0
+rect_scale = Vector2( 3, 3 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+bbcode_enabled = true
+bbcode_text = "PLAYER WINS"
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = "PLAYER WINS"
+scroll_active = true
+scroll_following = false
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "Anchor", "BBCode", "Grow Direction", "Hint", "Margin", "Mouse", "Rect", "Size Flags", "Visibility", "custom_styles" ]
 
 

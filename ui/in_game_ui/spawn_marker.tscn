@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://gfx/spawn_marker.png" type="Texture" id=1]
+
+[sub_resource type="Animation" id=1]
+
+resource_name = "bounce"
+length = 1.6
+loop = false
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -12 ), Vector2( 0, 0 ), Vector2( 0, -12 ), Vector2( 0, 0 ), Vector2( 0, -12 ), Vector2( 0, 0 ), Vector2( 0, -12 ), Vector2( 0, -12 ) ]
+}
+
+[node name="spawn_marker" type="Sprite" index="0"]
+
+position = Vector2( 204, 135 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -12 )
+_sections_unfolded = [ "Offset" ]
+
+[node name="anim" type="AnimationPlayer" parent="." index="0"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/bounce = SubResource( 1 )
+blend_times = [  ]
+
+

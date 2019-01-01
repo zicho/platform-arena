@@ -110,11 +110,14 @@ var PLAYER_NAMES = {
 }
 
 var RESPAWN_TIME = 2
-var FRAG_LIMIT = 1
+var NO_DAMAGE_AFTER_SPAWN_TIME = 4
+var FRAG_LIMIT = 10
 
 var MESSAGE_LOG
 
 var SFX = preload("res://helpers/sfx_library.tscn").instance()
+
+var GAME_ACTIVE = false
 
 func _ready():
 	
@@ -125,11 +128,11 @@ func _ready():
 	p3.name = PLAYER_NAMES["player3"]
 	p4.name = PLAYER_NAMES["player4"]
 	
-	var main_menu = get_tree().get_root().get_node("main/main_menu")
-	
-	if main_menu: main_menu.initialize_HUD()
-	
 	MESSAGE_LOG = get_tree().get_root().get_node("main/interface/interface_panel/PLAYER_HUDS/message_log")
+
+func initialize_HUD():
+	var main_menu = get_tree().get_root().get_node("main/main_menu")
+	if main_menu: main_menu.initialize_HUD()
 
 func update_frags(player_instance, value):
 
@@ -159,11 +162,13 @@ func spawn_initial_players():
 
 		assign_player += 1
 		player.spawn()
+		player.can_take_damage() # the invincibilty only is available after the initial spawn
 
 func respawn_player(controlled_by):
-	var player = load("res://entities/player.tscn").instance()
-	player.controlled_by = controlled_by
-	player.spawn()
+	if GAME_ACTIVE:
+		var player = load("res://entities/player.tscn").instance()
+		player.controlled_by = controlled_by
+		player.spawn()
 
 func update_gui_hp(hp, player):
 
@@ -176,6 +181,16 @@ func update_gui_hp(hp, player):
 	elif p == "player4": hud_to_update = p4_hud
 
 	if hud_to_update["hp_value"]: hud_to_update["hp_value"].text = str(hp)
+
+func player_wins(player, color):
+	var win_label = get_tree().get_root().get_node("main/win_label")
+	var win_label_text = get_tree().get_root().get_node("main/win_label/Panel/win_label_text")
+	
+	win_label_text.text = ""
+	win_label_text.append_bbcode("[color=#%s]%s[/color] wins!!!" % [color, player])
+	
+	win_label.visible = true
+	GAME_ACTIVE = false
 
 func update_gui_armor(armor, armor_type, player):
 
