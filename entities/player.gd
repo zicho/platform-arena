@@ -325,22 +325,22 @@ func weapon_loop():
 			weapon.shooter = self
 			weapon.shoot(active_dir)
 
-		if Input.is_action_pressed(player.right):
-			if not Input.is_action_pressed(player.shoot):
-				if not Input.is_action_pressed(player.turnlock):
-					turn_right()
-		if Input.is_action_pressed(player.left):
-			if not Input.is_action_pressed(player.shoot):
-				if not Input.is_action_pressed(player.turnlock):
-					turn_left()		
+#		if Input.is_action_pressed(player.right):
+#			if not Input.is_action_pressed(player.shoot):
+#				if not Input.is_action_pressed(player.turnlock):
+#					turn_right()
+#		if Input.is_action_pressed(player.left):
+#			if not Input.is_action_pressed(player.shoot):
+#				if not Input.is_action_pressed(player.turnlock):
+#					turn_left()		
 				
 #		if(Input.is_action_pressed(player.left) and not Input.is_action_pressed(player.shoot)):
 #			turn_left()
 
-#		if(Input.is_action_pressed(player.right) and not Input.is_action_pressed(player.turnlock)):
-#			turn_right()
-#		if(Input.is_action_pressed(player.left) and not Input.is_action_pressed(player.turnlock)):
-#			turn_left()	
+		if(Input.is_action_pressed(player.right) and not Input.is_action_pressed(player.turnlock)):
+			turn_right()
+		if(Input.is_action_pressed(player.left) and not Input.is_action_pressed(player.turnlock)):
+			turn_left()	
 
 	if Input.is_action_just_pressed(player.switch_weapon):
 

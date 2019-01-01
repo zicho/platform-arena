@@ -2,7 +2,7 @@
 
 [ext_resource path="res://setup.gd" type="Script" id=1]
 
-[node name="setup" type="PanelContainer"]
+[node name="setup" type="PanelContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -276,7 +276,165 @@ flat = false
 align = 1
 _sections_unfolded = [ "Rect", "custom_fonts" ]
 
-[node name="MarginContainer" type="MarginContainer" parent="main" index="1"]
+[node name="RichTextLabel" type="RichTextLabel" parent="main" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 378.0
+margin_top = 273.0
+margin_right = 686.0
+margin_bottom = 693.0
+rect_scale = Vector2( 1.5, 1.5 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+bbcode_enabled = false
+bbcode_text = "Controls:
+
+Xbox 360/One Controller:
+
+Left Stick
+A
+X
+R
+L (Hold)
+
+KEYBOARD CONTROLLERS (UP TO 2 PLAYERS)
+
+Player 1
+
+Arrow Left/Right
+Arrow Up
+Arrow Down
+Ctrl
+Shift (Hold)
+
+Player 2
+
+A/D
+W
+S
+G
+H (Hold)
+"
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = "Controls:
+
+Xbox 360/One Controller:
+
+Left Stick
+A
+X
+R
+L (Hold)
+
+KEYBOARD CONTROLLERS (UP TO 2 PLAYERS)
+
+Player 1
+
+Arrow Left/Right
+Arrow Up
+Arrow Down
+Ctrl
+Shift (Hold)
+
+Player 2
+
+A/D
+W
+S
+G
+H (Hold)
+"
+scroll_active = true
+scroll_following = false
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "BBCode", "Rect" ]
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="main" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 570.0
+margin_top = 360.0
+margin_right = 878.0
+margin_bottom = 780.0
+rect_scale = Vector2( 1.5, 1.5 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+bbcode_enabled = false
+bbcode_text = "-	Move
+-	Jump
+-	Switch/Pick up weapon
+-	Shoot
+-	Move without turning
+
+
+
+
+
+-	Move
+-	Jump
+-	Switch/Pick up weapon
+-	Shoot
+-	Move without turning
+
+
+
+-	Move
+-	Jump
+-	Switch/Pick up weapon
+-	Shoot
+-	Move without turning"
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = "-	Move
+-	Jump
+-	Switch/Pick up weapon
+-	Shoot
+-	Move without turning
+
+
+
+
+
+-	Move
+-	Jump
+-	Switch/Pick up weapon
+-	Shoot
+-	Move without turning
+
+
+
+-	Move
+-	Jump
+-	Switch/Pick up weapon
+-	Shoot
+-	Move without turning"
+scroll_active = true
+scroll_following = false
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "BBCode", "Rect" ]
+
+[node name="MarginContainer" type="MarginContainer" parent="main" index="3"]
 
 anchor_left = 0.5
 anchor_top = 1.0

@@ -21,7 +21,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -12 ), Vector2( 0, 0 ), Vector2( 0, -12 ), Vector2( 0, 0 ), Vector2( 0, -12 ), Vector2( 0, 0 ), Vector2( 0, -12 ), Vector2( 0, -12 ) ]
 }
 
-[node name="spawn_marker" type="Sprite" index="0"]
+[node name="spawn_marker" type="Sprite"]
 
 position = Vector2( 204, 135 )
 texture = ExtResource( 1 )
