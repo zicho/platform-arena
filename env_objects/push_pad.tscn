@@ -85,7 +85,7 @@ _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="fx" type="Particles2D" parent="area" index="2"]
 
-position = Vector2( -0.385536, 3.46983 )
+position = Vector2( -0.385536, 5.18694 )
 rotation = 1.5708
 z_index = -2
 emitting = true
