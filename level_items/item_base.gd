@@ -1,11 +1,13 @@
 extends Node2D
 
 onready var belongs_to
+onready var respawn_time = 5
 
 signal picked_up(item)
 
 func _ready():
 
+	respawn_time = 0.1
 	var anim = get_node("anim")
 	if anim:
 		anim.play("hover")

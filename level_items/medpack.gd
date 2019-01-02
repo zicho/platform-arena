@@ -1,6 +1,7 @@
 extends "res://level_items/item_base.gd"
 
 func _ready():
+	respawn_time = 20
 	self.add_to_group("med_items")
 
 func _on_medpack_body_entered(body):

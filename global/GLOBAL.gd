@@ -1,6 +1,7 @@
 extends Node
 
 onready var level
+onready var LEVEL_LIST
 
 enum armor_types { yellow, red }
 
@@ -124,6 +125,9 @@ var GAME_ACTIVE = false
 
 func _ready():
 	
+	#print(load_levels_from_dir("res://levels"))
+	LEVEL_LIST = load_levels_from_dir("res://levels")
+	
 	add_child(SFX)
 	
 	p1.name = PLAYER_NAMES["player"]
@@ -215,3 +219,29 @@ func update_gui_armor(armor, armor_type, player):
 			hud_to_update["armor_icon"].set_modulate("b30000")
 		if armor == 0:
 			hud_to_update["armor_icon"].set_modulate("ffffff")
+
+func load_levels_from_dir(path):
+
+	var files = []
+	var dir = Directory.new()
+	dir.open(path)
+	dir.list_dir_begin()
+
+	while true:
+		var file = dir.get_next()
+		if file == "":
+			break
+		if file == "test_level.tscn":
+			break
+		elif not file.begins_with(".") and file.ends_with(".tscn"):
+			files.append(file)
+	dir.list_dir_end()
+
+	return files
+#	var levels = []
+#
+#	for f in files:
+#		var level = load(f)
+#		levels.append(level)
+#
+#	return levels

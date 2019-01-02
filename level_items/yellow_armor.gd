@@ -1,6 +1,7 @@
 extends "res://level_items/item_base.gd"
 
 func _ready():
+	respawn_time = 25
 	self.add_to_group("armors")
 
 func _on_yellow_armor_body_entered(body):

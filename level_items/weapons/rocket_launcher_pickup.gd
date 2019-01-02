@@ -1,6 +1,7 @@
 extends "res://level_items/weapons/weapon_pickup_base.gd"
 
 func _ready():
+	respawn_time = 15
 	weapon_name = "ROCKET LAUNCHER"
 	weapon_ref = preload("res://weapons/rocket_launcher.tscn")
 	$info.text = "Press PICK UP WEAPON to pick up %s" % weapon_name
