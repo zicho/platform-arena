@@ -4,6 +4,7 @@ export (PackedScene) var item_to_spawn
 
 onready var spawn_pos = get_node("spawn_pos").global_position
 
+var connected = false
 var held_item
 var respawn_timer = Timer.new()
 
@@ -20,7 +21,9 @@ func spawn_item():
 
 		respawn_timer.set_wait_time(held_item.respawn_time)
 		respawn_timer.set_one_shot(true)
-		respawn_timer.connect("timeout", self, "spawn_item")
+		if not connected:
+			connected = true
+			respawn_timer.connect("timeout", self, "spawn_item")
 
 		held_item._spawn(spawn_pos, self)
 
