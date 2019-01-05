@@ -6,7 +6,7 @@ onready var barrel = get_node("barrel")
 export(PackedScene) var projectile
 
 var shooter
-var damage = 5
+var damage = 0
 
 export var display_name = "Weapon Name"
 var can_shoot = true
@@ -16,13 +16,14 @@ export var spread = 0.0
 var connected = false
 
 var ammo = -1
+var max_ammo
 
 func _ready():
-
 	add_child(cd_timer)
 
 func set_ammo(ammo):
 	self.ammo = ammo
+	self.max_ammo = ammo
 
 func set_cooldown_time(time):
 	cd_timer.set_wait_time(time)

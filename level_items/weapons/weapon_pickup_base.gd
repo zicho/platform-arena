@@ -3,7 +3,8 @@ extends "res://level_items/item_base.gd"
 export(String) var weapon_name
 export(PackedScene) var weapon_ref
 
-var ammo = 5
+var ammo = 0
+var max_ammo = 0
 
 func entered(body):
 	if body.is_in_group("players"):
@@ -11,14 +12,17 @@ func entered(body):
 		if not body.has_weapon(weapon_ref):
 			$info.visible = true
 		elif body.weapon.get_filename() == weapon_ref.get_path():
-			body.weapon.ammo = weapon_ref.instance().ammo
-			.picked_up()
-			GLOBAL.SFX.play("weapon_pickup")
-			
+			if body.weapon.ammo != max_ammo:
+				body.weapon.ammo = ammo
+				.picked_up()
+				GLOBAL.SFX.play("weapon_pickup")
+
 		elif body.secondary_weapon.get_filename() == weapon_ref.get_path():
-			body.secondary_weapon.ammo = weapon_ref.instance().ammo
-			.picked_up()
-			GLOBAL.SFX.play("weapon_pickup")
+			weapon_ref.instance()._ready()
+			if body.weapon.ammo != max_ammo:
+				body.secondary_weapon.ammo = ammo
+				.picked_up()
+				GLOBAL.SFX.play("weapon_pickup")
 
 func exited(body):
 	if body.is_in_group("players"):

@@ -135,8 +135,6 @@ func spawn():
 	
 	if GLOBAL.MODE_LAST_MAN_STANDING:
 		GLOBAL.PLAYERS_LEFT += 1
-	
-	print("%s is active: %s" % [instance_name, active])
 
 func remove_spawn_marker(anim_name):
 	$spawn_marker.queue_free()
@@ -269,7 +267,7 @@ func update_hp(new_hp):
 			splat.set_modulate(player.color)
 			GLOBAL.level.add_child(splat)
 			splat.global_position = self.global_position
-		
+
 		queue_free()
 
 		if not GLOBAL.MODE_LAST_MAN_STANDING:

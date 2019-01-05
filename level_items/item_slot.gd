@@ -21,6 +21,11 @@ func spawn_item():
 
 		respawn_timer.set_wait_time(held_item.respawn_time)
 		respawn_timer.set_one_shot(true)
+
+		if held_item.is_in_group("weapon_pickups"):
+			print(held_item.weapon_ref.instance().name)
+			print(held_item.weapon_ref.instance().ammo)
+
 		if not connected:
 			connected = true
 			respawn_timer.connect("timeout", self, "spawn_item")

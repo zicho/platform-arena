@@ -4,6 +4,8 @@ func _ready():
 	respawn_time = 15
 	weapon_name = "ION CANNON"
 	weapon_ref = preload("res://weapons/ion_cannon.tscn")
+	ammo = WEAPON_SETTINGS.ion_cannon_ammo
+	max_ammo = WEAPON_SETTINGS.ion_cannon_ammo
 	$info.text = "Press PICK UP WEAPON to pick up %s" % weapon_name
 
 func _on_ion_cannon_pickup_body_entered(body):

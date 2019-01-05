@@ -4,5 +4,4 @@ func _ready():
 	GLOBAL.initialize_HUD()
 	GLOBAL.GAME_ACTIVE = true
 	$win_label.visible = false
-	print ($bg)#.set("z", -100)
 	
