@@ -3,7 +3,7 @@
 [ext_resource path="res://setup.gd" type="Script" id=1]
 [ext_resource path="res://gfx/preview.png" type="Texture" id=2]
 
-[node name="setup" type="PanelContainer" index="0"]
+[node name="setup" type="PanelContainer"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -652,65 +652,17 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="select_level_label" type="Label" parent="main/Container4" index="0"]
+[node name="chb_last_man" type="CheckBox" parent="main/Container4" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 116.0
-margin_top = 150.0
-margin_right = 238.0
-margin_bottom = 164.0
-rect_scale = Vector2( 3, 3 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "Game Mode"
-align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Material", "Rect", "Visibility", "custom_fonts" ]
-
-[node name="level_name" type="Label" parent="main/Container4" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 116.0
-margin_top = 222.0
-margin_right = 238.0
-margin_bottom = 236.0
-rect_scale = Vector2( 3, 3 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "mode name"
-align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Material", "Rect", "Visibility", "custom_fonts" ]
-
-[node name="next_level" type="Button" parent="main/Container4" index="2"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 462.0
-margin_top = 198.0
-margin_right = 492.0
-margin_bottom = 228.0
-rect_scale = Vector2( 3, 3 )
+margin_left = 48.0
+margin_top = 225.0
+margin_right = 191.0
+margin_bottom = 252.0
+rect_scale = Vector2( 4, 4 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -718,25 +670,26 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-toggle_mode = false
+toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = ">"
+text = "Last Man Standing"
 flat = false
-align = 1
+align = 0
+_sections_unfolded = [ "Rect" ]
 
-[node name="prev_level" type="Button" parent="main/Container4" index="3"]
+[node name="chb_instagib" type="CheckBox" parent="main/Container4" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 54.0
-margin_top = 201.0
-margin_right = 84.0
-margin_bottom = 231.0
-rect_scale = Vector2( 3, 3 )
+margin_left = 48.0
+margin_top = 129.0
+margin_right = 127.0
+margin_bottom = 156.0
+rect_scale = Vector2( 4, 4 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -744,13 +697,14 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-toggle_mode = false
+toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "<"
+text = "Instagib"
 flat = false
-align = 1
+align = 0
+_sections_unfolded = [ "Rect" ]
 
 [connection signal="pressed" from="main/Container/increment_players" to="." method="_on_increment_players_pressed"]
 
@@ -765,5 +719,7 @@ align = 1
 [connection signal="pressed" from="main/Container3/next_level" to="." method="_on_next_level_pressed"]
 
 [connection signal="pressed" from="main/Container3/prev_level" to="." method="_on_prev_level_pressed"]
+
+[connection signal="pressed" from="main/Container4/chb_instagib" to="." method="_on_chb_instagib_pressed"]
 
 

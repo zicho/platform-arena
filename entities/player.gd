@@ -40,6 +40,8 @@ signal hp_changed(hp)
 var hp
 var fragged = false
 
+var active = true # used in last man standing mode
+
 signal armor_changed(value)
 var armor
 var armor_type = GLOBAL.armor_types.red
@@ -54,7 +56,7 @@ var no_damage_timer = Timer.new() # used when respawning to prevent you from tak
 var can_take_damage = true
 
 func _ready():
-	
+
 	if GLOBAL.MODE_INSTAGIB:
 		weapon = preload("res://weapons/railgun.tscn").instance()
 		weapon.ammo = -1
@@ -106,7 +108,7 @@ func _ready():
 	add_child(no_damage_timer)
 
 func spawn():
-
+	
 	GLOBAL.level.add_child(self)
 	add_child(weapon)
 	turn_right()
@@ -130,6 +132,11 @@ func spawn():
 	$spawn_marker/anim.connect("animation_finished", self, "remove_spawn_marker")
 	$spawn_marker.set_modulate(player.color)
 	$spawn_marker/anim.play("bounce")
+	
+	if GLOBAL.MODE_LAST_MAN_STANDING:
+		GLOBAL.PLAYERS_LEFT += 1
+	
+	print("%s is active: %s" % [instance_name, active])
 
 func remove_spawn_marker(anim_name):
 	$spawn_marker.queue_free()
@@ -201,16 +208,13 @@ func take_damage(damage, dealt_by, weapon = null):
 				
 				if dealt_by != self and not fragged:
 					fragged = true
-					dealt_by.player.frags += 1
-					#GLOBAL.score_frag(dealt_by)
-					#GLOBAL.MESSAGE_LOG.append_bbcode("[color=#%s]%s[/color] killed [color=#%s]%s[/color]" % [dealt_by.player.color, dealt_by.player.name, self.player.color, self.player.name])
-					#GLOBAL.MESSAGE_LOG.newline()
+					if not GLOBAL.MODE_LAST_MAN_STANDING:
+						dealt_by.player.frags += 1
 	
 				if dealt_by == self and not fragged:
 					dealt_by.fragged = true
-					dealt_by.player.frags -= 1
-					#GLOBAL.MESSAGE_LOG.append_bbcode("[color=#%s]%s[/color] grew tired of living." % [dealt_by.player.color, dealt_by.player.name])
-					#GLOBAL.MESSAGE_LOG.newline()
+					if not GLOBAL.MODE_LAST_MAN_STANDING:
+						dealt_by.player.frags -= 1
 	
 				emit_signal("update_frags", dealt_by.instance_name, dealt_by.player.frags)
 				
@@ -258,20 +262,33 @@ func update_hp(new_hp):
 		print("new hp is: %s" % new_hp)
 
 	if self.hp <= 0:
+
 		hp = 0
-
-		if not fragged: # make sure it only happens once
-			
-			var splat = load("res://effects/frag_splat.tscn").instance()
-			splat.set_modulate(player.color)
-			GLOBAL.level.add_child(splat)
-			splat.global_position = self.global_position
-
-		queue_free()
+		var splat = load("res://effects/frag_splat.tscn").instance()
+		splat.set_modulate(player.color)
+		GLOBAL.level.add_child(splat)
+		splat.global_position = self.global_position
 		
-		respawn_timer.start()
+		queue_free()
 
-		#GLOBAL.respawn_player(self.controlled_by)
+		if not GLOBAL.MODE_LAST_MAN_STANDING:
+			respawn_timer.start()
+
+		else:
+			active = false
+			GLOBAL.PLAYERS_LEFT -= 1
+
+			if GLOBAL.PLAYERS_LEFT == 1:
+				var player_alive
+				for p in get_tree().get_nodes_in_group("players"):
+					if p.active:
+						player_alive = p
+				
+				player_alive.player.frags += 1
+				emit_signal("update_frags", player_alive.instance_name, player_alive.player.frags)
+				player_alive.queue_free()
+				if not player_alive.player.frags == GLOBAL.FRAG_LIMIT:
+					GLOBAL.ROUND_RESET.start()
 
 	emit_signal("hp_changed", hp, self)
 

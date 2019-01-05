@@ -31,7 +31,12 @@ const railgun_damage = 80
 const railgun_delay = 1.6
 const railgun_ammo = 20
 
-func _ready():
+func load_instagib_settings():
 	if GLOBAL.MODE_INSTAGIB: 
 		railgun_damage = 100
-		railgun_delay = 0.2
+		railgun_delay = 1.2
+		
+func unload_instagib_settings():
+	if not GLOBAL.MODE_INSTAGIB: 
+		railgun_damage = 80
+		railgun_delay = 1.6

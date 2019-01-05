@@ -104,7 +104,7 @@ var p4_hud = {
 	"frag_icon": null
 }
 
-onready var NO_OF_PLAYERS = 2 # max 4
+onready var NO_OF_PLAYERS = 3 # max 4
 enum PLAYERS { player1, player2, player3, player4 }
 
 var PLAYER_NAMES = { 
@@ -114,7 +114,14 @@ var PLAYER_NAMES = {
 	"player4": "Player 4" 
 }
 
+# INSTAGIB
 var MODE_INSTAGIB = false
+
+# LAST MAN STANDING
+var MODE_LAST_MAN_STANDING = true
+var PLAYERS_LEFT = 0
+var ROUND_RESET = Timer.new()
+var ROUND_RESET_TIME = 4
 
 var RESPAWN_TIME = 2
 var NO_DAMAGE_AFTER_SPAWN_TIME = 4
@@ -126,11 +133,7 @@ var SFX = preload("res://helpers/sfx_library.tscn").instance()
 
 var GAME_ACTIVE = false
 
-func mode_instagib():
-	MODE_INSTAGIB = true
-
 func _ready():
-	mode_instagib()
 	#print(load_levels_from_dir("res://levels"))
 	LEVEL_LIST = load_levels_from_dir("res://levels")
 	
@@ -142,6 +145,12 @@ func _ready():
 	p4.name = PLAYER_NAMES["player4"]
 	
 	MESSAGE_LOG = get_tree().get_root().get_node("main/interface/interface_panel/PLAYER_HUDS/message_log")
+	
+	if MODE_LAST_MAN_STANDING:
+		ROUND_RESET.set_wait_time(ROUND_RESET_TIME)
+		ROUND_RESET.connect("timeout", self, "spawn_initial_players")
+		ROUND_RESET.set_one_shot(true)
+		add_child(ROUND_RESET)
 
 func initialize_HUD():
 	var main_menu = get_tree().get_root().get_node("main/main_menu")
@@ -159,7 +168,9 @@ func update_frags(player_instance, value):
 	if hud_to_update["frag_value"]: hud_to_update["frag_value"].text = str(value)
 
 func spawn_initial_players():
-
+	
+	PLAYERS_LEFT = 0 # this must be reset after each rtound in last man standing
+	
 	var assign_player = 0
 
 	for p in NO_OF_PLAYERS:

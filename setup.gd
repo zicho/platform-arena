@@ -76,3 +76,11 @@ func _on_prev_level_pressed():
 		selected_level_index = GLOBAL.LEVEL_LIST.size() - 1
 	
 	select_level(selected_level_index)
+
+func _on_chb_instagib_pressed():
+	if GLOBAL.MODE_INSTAGIB:
+		GLOBAL.MODE_INSTAGIB = false
+		WEAPON_SETTINGS.unload_instagib_settings()
+	else:
+		GLOBAL.MODE_INSTAGIB = true
+		WEAPON_SETTINGS.load_instagib_settings()
