@@ -9,9 +9,9 @@ func _on_pulse_projectile_body_entered(body):
 		if body != self.shooter:
 			
 			if motion.x < 0:
-				body.push(-knockback, 0.15)
+				body.push(-knockback, WEAPON_SETTINGS.pulse_blaster_knockback)
 			else:
-				body.push(knockback, 0.15)
+				body.push(knockback, WEAPON_SETTINGS.pulse_blaster_knockback)
 				
 			body.take_damage(damage, shooter)
 			body.hit_effect(damage, motion.x)

@@ -5,7 +5,7 @@ onready var splash_shape = $splash_radius/shape
 onready var sprite = $gfx
 
 onready var shooter
-onready var damage = 100
+onready var damage
 var first_loop_done = false
 
 var players_hit = [] # add each player to this list so its possible to damage several players but not hurt one player twice
@@ -20,6 +20,7 @@ func _physics_process(delta):
 	if damage > 0:
 		splash_shape.shape.radius += 4
 		sprite.scale += Vector2(0.5, 0.5)
+
 	else:
     	queue_free()
 		

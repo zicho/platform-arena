@@ -113,6 +113,8 @@ var PLAYER_NAMES = {
 	"player4": "Player 4" 
 }
 
+var MODE_INSTAGIB = false
+
 var RESPAWN_TIME = 2
 var NO_DAMAGE_AFTER_SPAWN_TIME = 4
 var FRAG_LIMIT = 10
@@ -123,8 +125,11 @@ var SFX = preload("res://helpers/sfx_library.tscn").instance()
 
 var GAME_ACTIVE = false
 
+func mode_instagib():
+	MODE_INSTAGIB = true
+
 func _ready():
-	
+	mode_instagib()
 	#print(load_levels_from_dir("res://levels"))
 	LEVEL_LIST = load_levels_from_dir("res://levels")
 	

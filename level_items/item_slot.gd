@@ -9,8 +9,8 @@ var held_item
 var respawn_timer = Timer.new()
 
 func _ready():
-	call_deferred("spawn_item")
-	spawn_item()
+	if not GLOBAL.MODE_INSTAGIB:
+		call_deferred("spawn_item")
 	add_child(respawn_timer)
 
 func spawn_item():

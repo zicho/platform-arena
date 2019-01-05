@@ -5,6 +5,14 @@ onready var trail = preload("res://effects/railgun_trail.tscn")
 var ray_hit = Vector2()
 var shot_range = 2000
 
+func _ready():
+	damage = WEAPON_SETTINGS.railgun_damage
+	set_cooldown_time(WEAPON_SETTINGS.railgun_delay)
+	if GLOBAL.MODE_INSTAGIB:
+		set_ammo(-1)
+	else:
+		set_ammo(WEAPON_SETTINGS.railgun_ammo)
+
 func shoot(dir):
 
 	if not connected:

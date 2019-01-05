@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://weapons/rifle.gd" type="Script" id=1]
+[ext_resource path="res://weapons/machine_gun.gd" type="Script" id=1]
 [ext_resource path="res://projectiles/rifle_projectile.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gfx/machinegun.png" type="Texture" id=3]
 
@@ -9,11 +9,8 @@
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 projectile = ExtResource( 2 )
-damage = 5
 display_name = "Weapon Name"
-shot_delay = 0.15
 spread = 0.0
-ammo = -1
 
 [node name="barrel" type="Position2D" parent="." index="0"]
 

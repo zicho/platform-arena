@@ -18,6 +18,7 @@ var decrease_ammo = true
 
 func _ready():
 
+	damage = WEAPON_SETTINGS.ion_cannon_damage
 	damage_timer.connect("timeout", self, "do_damage")
 	damage_timer.set_wait_time(damage_cooldown)
 	add_child(damage_timer)
@@ -25,6 +26,9 @@ func _ready():
 	ammo_timer.connect("timeout", self, "decrease_ammo")
 	ammo_timer.set_wait_time(ammo_cooldown)
 	add_child(ammo_timer)
+	
+	set_ammo(WEAPON_SETTINGS.ion_cannon_ammo)
+	set_cooldown_time(WEAPON_SETTINGS.ion_cannon_delay)
 
 func do_damage():
 	do_damage = true

@@ -54,6 +54,10 @@ var no_damage_timer = Timer.new() # used when respawning to prevent you from tak
 var can_take_damage = true
 
 func _ready():
+	
+	if GLOBAL.MODE_INSTAGIB:
+		weapon = preload("res://weapons/railgun.tscn").instance()
+		weapon.ammo = -1
 
 	update_hp(100)
 	update_armor(0)
@@ -120,6 +124,9 @@ func spawn():
 	can_take_damage = false
 	no_damage_timer.start()
 	
+	#if GLOBAL.MODE_INSTAGIB:
+		#weapon = load("res://weapons/railgun.tscn").instance()
+		
 	$spawn_marker/anim.connect("animation_finished", self, "remove_spawn_marker")
 	$spawn_marker.set_modulate(player.color)
 	$spawn_marker/anim.play("bounce")

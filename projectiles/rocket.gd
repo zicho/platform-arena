@@ -15,6 +15,7 @@ func _on_rocket_body_entered(body):
 
 func destroy():
 	var e = explosion.instance()
+	e.damage = self.damage
 	self.queue_free()
 	e.shooter = shooter
 	GLOBAL.level.add_child(e)
