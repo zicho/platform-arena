@@ -21,8 +21,12 @@ WEAPON_SETTINGS="*res://settings/WEAPON_SETTINGS.gd"
 
 [display]
 
-window/size/width=1200
+window/size/width=1920
 window/size/height=1080
+window/size/resizable=false
+window/size/fullscreen=true
+window/size/test_width=800
+window/size/test_height=600
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 window/stretch/shrink="1"
@@ -112,4 +116,5 @@ p4_pick_up_weapon=[ Object(InputEventJoypadButton,"resource_local_to_scene":fals
 
 [rendering]
 
+quality/shadows/filter_mode=0
 environment/default_environment="res://default_env.tres"

@@ -104,15 +104,17 @@ var p4_hud = {
 	"frag_icon": null
 }
 
-onready var NO_OF_PLAYERS = 3 # max 4
-enum PLAYERS { player1, player2, player3, player4 }
-
 var PLAYER_NAMES = { 
 	"player": "Player 1", 
 	"player2": "Player 2", 
 	"player3": "Player 3", 
 	"player4": "Player 4" 
 }
+
+# GLOBAL
+
+onready var NO_OF_PLAYERS = 4 # max 4
+enum PLAYERS { player1, player2, player3, player4 }
 
 # INSTAGIB
 var MODE_INSTAGIB = false

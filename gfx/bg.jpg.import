@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/railgun.png-2ab6962539a4843be886f76fc5f08a46.stex"
+path="res://.import/bg.jpg-ab64071a47b5246759f02ea00800b360.stex"
 
 [deps]
 
-source_file="res://gfx/railgun.png"
-dest_files=[ "res://.import/railgun.png-2ab6962539a4843be886f76fc5f08a46.stex" ]
+source_file="res://gfx/bg.jpg"
+dest_files=[ "res://.import/bg.jpg-ab64071a47b5246759f02ea00800b360.stex" ]
 
 [params]
 
@@ -16,11 +16,11 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 stream=false

@@ -264,10 +264,11 @@ func update_hp(new_hp):
 	if self.hp <= 0:
 
 		hp = 0
-		var splat = load("res://effects/frag_splat.tscn").instance()
-		splat.set_modulate(player.color)
-		GLOBAL.level.add_child(splat)
-		splat.global_position = self.global_position
+		if not fragged:
+			var splat = load("res://effects/frag_splat.tscn").instance()
+			splat.set_modulate(player.color)
+			GLOBAL.level.add_child(splat)
+			splat.global_position = self.global_position
 		
 		queue_free()
 
