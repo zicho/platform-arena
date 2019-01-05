@@ -32,7 +32,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.281765 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="player" type="KinematicBody2D" index="0" groups=[
+[node name="player" type="KinematicBody2D" groups=[
 "players",
 ]]
 

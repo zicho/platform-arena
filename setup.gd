@@ -84,3 +84,9 @@ func _on_chb_instagib_pressed():
 	else:
 		GLOBAL.MODE_INSTAGIB = true
 		WEAPON_SETTINGS.load_instagib_settings()
+
+func _on_chb_last_man_pressed():
+	if GLOBAL.MODE_LAST_MAN_STANDING:
+		GLOBAL.MODE_LAST_MAN_STANDING = false
+	else:
+		GLOBAL.MODE_LAST_MAN_STANDING = true

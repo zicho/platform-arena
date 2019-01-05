@@ -118,7 +118,7 @@ var PLAYER_NAMES = {
 var MODE_INSTAGIB = false
 
 # LAST MAN STANDING
-var MODE_LAST_MAN_STANDING = true
+var MODE_LAST_MAN_STANDING = false
 var PLAYERS_LEFT = 0
 var ROUND_RESET = Timer.new()
 var ROUND_RESET_TIME = 4
@@ -146,11 +146,10 @@ func _ready():
 	
 	MESSAGE_LOG = get_tree().get_root().get_node("main/interface/interface_panel/PLAYER_HUDS/message_log")
 	
-	if MODE_LAST_MAN_STANDING:
-		ROUND_RESET.set_wait_time(ROUND_RESET_TIME)
-		ROUND_RESET.connect("timeout", self, "spawn_initial_players")
-		ROUND_RESET.set_one_shot(true)
-		add_child(ROUND_RESET)
+	ROUND_RESET.set_wait_time(ROUND_RESET_TIME)
+	ROUND_RESET.connect("timeout", self, "spawn_initial_players")
+	ROUND_RESET.set_one_shot(true)
+	add_child(ROUND_RESET)
 
 func initialize_HUD():
 	var main_menu = get_tree().get_root().get_node("main/main_menu")

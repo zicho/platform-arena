@@ -3,7 +3,7 @@
 [ext_resource path="res://setup.gd" type="Script" id=1]
 [ext_resource path="res://gfx/preview.png" type="Texture" id=2]
 
-[node name="setup" type="PanelContainer"]
+[node name="setup" type="PanelContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -719,6 +719,8 @@ _sections_unfolded = [ "Rect" ]
 [connection signal="pressed" from="main/Container3/next_level" to="." method="_on_next_level_pressed"]
 
 [connection signal="pressed" from="main/Container3/prev_level" to="." method="_on_prev_level_pressed"]
+
+[connection signal="pressed" from="main/Container4/chb_last_man" to="." method="_on_chb_last_man_pressed"]
 
 [connection signal="pressed" from="main/Container4/chb_instagib" to="." method="_on_chb_instagib_pressed"]
 
