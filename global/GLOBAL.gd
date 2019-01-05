@@ -58,6 +58,7 @@ var p4 = {
 	"shoot": "p4_shoot",
 	"turnlock": "p4_turnlock",
 	"switch_weapon": "p4_switch_weapon",
+	"pick_up_weapon": "p4_pick_up_weapon",
 	"frags": 0
 }
 
