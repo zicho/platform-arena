@@ -9,7 +9,7 @@ var DAMAGE_DEBUG = false
 
 ## CONTROLS
 
-var p1 = {
+var player1 = {
 	"name": null,
 	"color": "D5452F",
 	"right": "p1_right",
@@ -22,7 +22,7 @@ var p1 = {
 	"frags": 0
 }
 
-var p2 = {
+var player2 = {
 	"name": null,
 	"color": "59B8FF",
 	"right": "p2_right",
@@ -35,7 +35,7 @@ var p2 = {
 	"frags": 0
 }
 
-var p3 = {
+var player3 = {
 	"name": null,
 	"color": "32CD32",
 	"right": "p3_right",
@@ -48,8 +48,7 @@ var p3 = {
 	"frags": 0
 }
 
-
-var p4 = {
+var player4 = {
 	"name": null,
 	"color": "FFD700",
 	"right": "p4_right",
@@ -105,7 +104,7 @@ var p4_hud = {
 }
 
 var PLAYER_NAMES = { 
-	"player": "Player 1", 
+	"player1": "Player 1", 
 	"player2": "Player 2", 
 	"player3": "Player 3", 
 	"player4": "Player 4" 
@@ -141,10 +140,10 @@ func _ready():
 	
 	add_child(SFX)
 	
-	p1.name = PLAYER_NAMES["player"]
-	p2.name = PLAYER_NAMES["player2"]
-	p3.name = PLAYER_NAMES["player3"]
-	p4.name = PLAYER_NAMES["player4"]
+	player1.name = PLAYER_NAMES["player1"]
+	player2.name = PLAYER_NAMES["player2"]
+	player3.name = PLAYER_NAMES["player3"]
+	player4.name = PLAYER_NAMES["player4"]
 	
 	MESSAGE_LOG = get_tree().get_root().get_node("main/interface/interface_panel/PLAYER_HUDS/message_log")
 	
@@ -161,7 +160,7 @@ func update_frags(player_instance, value):
 
 	var hud_to_update
 
-	if player_instance == "player": hud_to_update = p1_hud 
+	if player_instance == "player1": hud_to_update = p1_hud 
 	elif player_instance == "player2": hud_to_update = p2_hud
 	elif player_instance == "player3": hud_to_update = p3_hud
 	elif player_instance == "player4": hud_to_update = p4_hud
@@ -200,7 +199,7 @@ func update_gui_hp(hp, player):
 	var p = player.instance_name
 	var hud_to_update
 
-	if p == "player": hud_to_update = p1_hud 
+	if p == "player1": hud_to_update = p1_hud 
 	elif p == "player2": hud_to_update = p2_hud
 	elif p == "player3": hud_to_update = p3_hud
 	elif p == "player4": hud_to_update = p4_hud
@@ -228,7 +227,7 @@ func update_gui_armor(armor, armor_type, player):
 	
 	var hud_to_update
 
-	if p == "player": hud_to_update = p1_hud 
+	if p == "player1": hud_to_update = p1_hud 
 	elif p == "player2": hud_to_update = p2_hud
 	elif p == "player3": hud_to_update = p3_hud
 	elif p == "player4": hud_to_update = p4_hud

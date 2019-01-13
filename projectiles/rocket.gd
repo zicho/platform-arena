@@ -7,7 +7,7 @@ func _process(delta):
 
 func _on_rocket_body_entered(body):
 	if body.is_in_group("players"):
-		if body != shooter:
+		if body.instance_name != shooter:
 			#body.take_damage(damage, shooter)
 			destroy()
 	else:		
@@ -17,6 +17,5 @@ func destroy():
 	var e = explosion.instance()
 	e.damage = self.damage
 	self.queue_free()
-	e.shooter = shooter
 	GLOBAL.level.add_child(e)
-	e.global_position = self.global_position
+	e.spawn(global_position, shooter)

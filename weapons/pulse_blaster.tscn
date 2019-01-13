@@ -9,7 +9,6 @@
 script = ExtResource( 1 )
 projectile = ExtResource( 2 )
 display_name = "Weapon Name"
-spread = 0.015
 
 [node name="gfx" type="Sprite" parent="." index="0"]
 
@@ -18,5 +17,6 @@ texture = ExtResource( 3 )
 [node name="barrel" type="Position2D" parent="." index="1"]
 
 position = Vector2( -1.93175, -4.71217 )
+_sections_unfolded = [ "Transform" ]
 
 

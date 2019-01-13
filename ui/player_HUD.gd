@@ -3,7 +3,7 @@ extends PanelContainer
 func initialize_player_HUD(player_no):
 
 	if player_no == 0: # PLAYER 1
-		find_node("name_label").text = GLOBAL.PLAYER_NAMES["player"]
+		find_node("name_label").text = GLOBAL.PLAYER_NAMES["player1"]
 		GLOBAL.p1_hud["hp_value"] = find_node("hp_value")
 		GLOBAL.p1_hud["hp_icon"] = find_node("hp_icon")
 		GLOBAL.p1_hud["armor_value"] = find_node("armor_value")

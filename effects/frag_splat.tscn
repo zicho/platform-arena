@@ -43,7 +43,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Angle", "Angular Velocity", "Color", "Emission Shape", "Flags", "Gravity", "Hue Variation", "Initial Velocity", "Orbit Velocity", "Radial Accel", "Scale", "Spread", "Tangential Accel", "Trail" ]
 
-[node name="frag_splat" type="Node2D"]
+[node name="frag_splat" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 

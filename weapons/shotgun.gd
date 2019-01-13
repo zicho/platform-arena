@@ -3,6 +3,9 @@ extends "res://weapons/weapon_base.gd"
 var pellets = WEAPON_SETTINGS.shotgun_pellets
 
 func _ready():
+	spread = WEAPON_SETTINGS.shotgun_spread
+	shooter = get_parent()
+	shooter_ref = shooter.instance_name
 	set_cooldown_time(WEAPON_SETTINGS.shotgun_delay)
 	set_ammo(WEAPON_SETTINGS.shotgun_ammo)
 
@@ -24,7 +27,7 @@ func shoot(dir):
 				GLOBAL.level.add_child(bullet)
 				bullet.shooter = self.shooter
 				bullet.damage = WEAPON_SETTINGS.shotgun_damage
-				bullet._spawn(barrel.global_position, Vector2(dir.x, (dir.y + rand_range(-spread, spread))))
+				bullet._spawn(barrel.global_position, Vector2(dir.x, (dir.y + rand_range(-spread, spread))), shooter_ref)
 				
 				GLOBAL.SFX.play("shotgun")
 

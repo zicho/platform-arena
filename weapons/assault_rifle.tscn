@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://weapons/assault_rifle.gd" type="Script" id=1]
+[ext_resource path="res://projectiles/assault_rifle_projectile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://gfx/assault_rifle.png" type="Texture" id=3]
+
+[node name="assault_rifle" type="Node2D"]
+
+script = ExtResource( 1 )
+projectile = ExtResource( 2 )
+display_name = "Weapon Name"
+
+[node name="gfx" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 3 )
+
+[node name="barrel" type="Position2D" parent="." index="1"]
+
+position = Vector2( -2.95578, -2.74298 )
+
+

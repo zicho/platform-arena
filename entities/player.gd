@@ -16,6 +16,7 @@ var jump_timer = 0
 var push_force = 0
 var push_active_timer = Timer.new()
 var push_active = false
+var diagonal_push = false
 
 var knock_dir = Vector2(0,0)
 
@@ -30,7 +31,9 @@ onready var size = sprite.texture.get_size()
 var dirs = { "right": Vector2(1,0), "left": Vector2(-1, 0) }
 var active_dir 
 
-onready var weapon = preload("res://weapons/machine_gun.tscn").instance()
+#onready var weapon = preload("res://weapons/machine_gun.tscn").instance()
+onready var weapon = preload("res://weapons/assault_rifle.tscn").instance()
+#onready var weapon = preload("res://weapons/pulse_blaster.tscn").instance()
 onready var secondary_weapon# = preload("res://weapons/shotgun.tscn").instance()
 
 var weapon_queue
@@ -55,8 +58,16 @@ var respawn_timer = Timer.new()
 var no_damage_timer = Timer.new() # used when respawning to prevent you from taking instant damage
 var can_take_damage = true
 
-func _ready():
+var acid_damage_timer = Timer.new()
+var acid_damage_delay = 0.2
+var take_acid_damage = false
+var in_acid = false
 
+func take_acid_damage():
+	take_acid_damage = true
+
+func _ready():
+	
 	if GLOBAL.MODE_INSTAGIB:
 		weapon = preload("res://weapons/railgun.tscn").instance()
 		weapon.ammo = -1
@@ -67,20 +78,20 @@ func _ready():
 	fragged = false
 	
 	if controlled_by == GLOBAL.PLAYERS.player1:
-		instance_name = "player"
-		player = GLOBAL.p1
+		instance_name = "player1"
+		player = GLOBAL.player1
 
 	if controlled_by == GLOBAL.PLAYERS.player2:
 		instance_name = "player2"
-		player = GLOBAL.p2
+		player = GLOBAL.player2
 
 	if controlled_by == GLOBAL.PLAYERS.player3:
 		instance_name = "player3"
-		player = GLOBAL.p3
+		player = GLOBAL.player3
 
 	if controlled_by == GLOBAL.PLAYERS.player4:
 		instance_name = "player4"
-		player = GLOBAL.p4
+		player = GLOBAL.player4
 
 	$health_bar.set_modulate(player.color)
 
@@ -101,11 +112,15 @@ func _ready():
 	respawn_timer.set_one_shot(true)
 	respawn_timer.connect("timeout", GLOBAL, "respawn_player", [controlled_by])
 	GLOBAL.add_child(respawn_timer)
-	
+
 	no_damage_timer.set_wait_time(GLOBAL.NO_DAMAGE_AFTER_SPAWN_TIME)
 	no_damage_timer.set_one_shot(true)
 	no_damage_timer.connect("timeout", self, "can_take_damage")
 	add_child(no_damage_timer)
+	
+	acid_damage_timer.set_wait_time(acid_damage_delay)
+	acid_damage_timer.connect("timeout", self, "take_acid_damage")
+	add_child(acid_damage_timer)
 
 func spawn():
 	
@@ -116,23 +131,23 @@ func spawn():
 	var spawn_points = get_tree().get_nodes_in_group("spawn_points")
 	randomize()
 	var spawn = spawn_points[randi() % spawn_points.size()]
-	
+
 	var p = load("res://particles/player_appears.tscn").instance()
 	GLOBAL.level.add_child(p)
 	p.global_position = spawn.get_node("spawn_pos").global_position + Vector2(12, 12)
 	p.set_modulate(player.color)
 	global_position = spawn.get_node("spawn_pos").global_position
-	
+
 	can_take_damage = false
 	no_damage_timer.start()
-	
+
 	#if GLOBAL.MODE_INSTAGIB:
 		#weapon = load("res://weapons/railgun.tscn").instance()
-		
+
 	$spawn_marker/anim.connect("animation_finished", self, "remove_spawn_marker")
 	$spawn_marker.set_modulate(player.color)
 	$spawn_marker/anim.play("bounce")
-	
+
 	if GLOBAL.MODE_LAST_MAN_STANDING:
 		GLOBAL.PLAYERS_LEFT += 1
 
@@ -141,35 +156,61 @@ func remove_spawn_marker(anim_name):
 
 func hit_effect(damage, dir):
 	if can_take_damage:
-		for b in range(damage / 5):
-			
-			var blood = load("res://effects/hit_effect.tscn").instance()
-			
-			if dir < 0:
-				blood.scale = Vector2(-1, 1)
-			
-			blood.find_node("fx").emitting = true
-			blood.position.x = self.position.x + 12
-			blood.position.y = self.position.y + 12
-			blood.set_modulate(player.color)
-			GLOBAL.level.add_child(blood)
+		
+		var blood = damage / 5
+		
+		if blood < 1:
+			blood = 1
+		
+		for b in range(blood):
 
-func take_damage(damage, dealt_by, weapon = null):
+			var blood_effect = load("res://effects/hit_effect.tscn").instance()
+
+			if dir < 0:
+				blood_effect.scale = Vector2(-1, 1)
+
+			blood_effect.find_node("fx").emitting = true
+			blood_effect.position.x = self.position.x + 12
+			blood_effect.position.y = self.position.y + 12
+			blood_effect.set_modulate(player.color)
+			GLOBAL.level.add_child(blood_effect)
+
+func take_flat_damage(damage, armor_damage, dealt_by, weapon = null):
 	
 	GLOBAL.SFX.play("hit")
 	
-	if GLOBAL.DAMAGE_DEBUG:
-		print("damage taken: %s" % damage)
-		
-		print("hp is: %s" % hp)
-		print("armor is: %s of type %s" % [armor, armor_type])
-		
 	if can_take_damage:
 		if armor > 0:
+			if armor_type == GLOBAL.armor_types.yellow:
+				update_armor(armor - (armor_damage * 0.75))
+			if armor_type == GLOBAL.armor_types.red:
+				update_armor(armor - armor_damage)
+		if armor < 0:
+			update_armor(0)
+		update_hp(hp - damage)
 	
+	if hp <= 0:
+		fragged(dealt_by)	
+
+func take_damage(damage, dealt_by, weapon = null):
+
+	if weapon == "acid":
+		GLOBAL.SFX.play("acid")
+	else:
+		GLOBAL.SFX.play("hit")
+
+	if GLOBAL.DAMAGE_DEBUG:
+		print("damage taken: %s" % damage)
+
+		print("hp is: %s" % hp)
+		print("armor is: %s of type %s" % [armor, armor_type])
+
+	if can_take_damage:
+		if armor > 0:
+
 			var calculated_damage = 0
 			var current_armor = armor
-	
+
 			if armor_type == GLOBAL.armor_types.yellow:
 				for d in damage:
 					if current_armor > 0:
@@ -177,7 +218,7 @@ func take_damage(damage, dealt_by, weapon = null):
 						current_armor -= 1
 					else:
 						calculated_damage += 1
-	
+
 			if armor_type == GLOBAL.armor_types.red:
 				for d in damage:
 					if current_armor > 0:
@@ -185,7 +226,7 @@ func take_damage(damage, dealt_by, weapon = null):
 						current_armor -= 1
 					else:
 						calculated_damage += 1
-	
+
 			if calculated_damage > armor:
 				update_armor(0)
 			else:
@@ -193,31 +234,41 @@ func take_damage(damage, dealt_by, weapon = null):
 					update_armor(armor - calculated_damage * 2)
 				if armor_type == GLOBAL.armor_types.red:
 					update_armor(armor - calculated_damage * 3)
-	
+
 			update_hp(hp - calculated_damage)
-	
+
 		else:
 			update_hp(hp - damage)
-		
+
 		if hp <= 0:
-	
-			if dealt_by:
-				update_armor(0)
-				
-				if dealt_by != self and not fragged:
-					fragged = true
-					if not GLOBAL.MODE_LAST_MAN_STANDING:
-						dealt_by.player.frags += 1
-	
-				if dealt_by == self and not fragged:
-					dealt_by.fragged = true
-					if not GLOBAL.MODE_LAST_MAN_STANDING:
-						dealt_by.player.frags -= 1
-	
-				emit_signal("update_frags", dealt_by.instance_name, dealt_by.player.frags)
-				
-				if dealt_by.player.frags == GLOBAL.FRAG_LIMIT or dealt_by.player.frags > GLOBAL.FRAG_LIMIT:
-					GLOBAL.player_wins(dealt_by.player.name, dealt_by.player.color)
+			fragged(dealt_by)
+			
+func fragged(fragged_by):
+	if fragged_by:
+
+		
+
+		for p in get_tree().get_nodes_in_group("players"):
+			if p.instance_name == fragged_by:
+				var frag_marker = load("res://effects/frag_marker.tscn").instance()
+				p.add_child(frag_marker)
+				frag_marker.set_modulate(GLOBAL[fragged_by].color)
+
+		update_armor(0)
+
+		if fragged_by != self.instance_name and not fragged:
+			fragged = true
+			if not GLOBAL.MODE_LAST_MAN_STANDING:
+				GLOBAL[fragged_by].frags += 1
+		if fragged_by == self.instance_name and not fragged:
+			fragged = true
+			if not GLOBAL.MODE_LAST_MAN_STANDING:
+				GLOBAL[fragged_by].frags -= 1
+
+		emit_signal("update_frags", fragged_by, GLOBAL[fragged_by].frags)
+
+		if GLOBAL[fragged_by].frags == GLOBAL.FRAG_LIMIT or GLOBAL[fragged_by].frags > GLOBAL.FRAG_LIMIT:
+			GLOBAL.player_wins(GLOBAL[fragged_by].name, GLOBAL[fragged_by].color)
 
 func add_armor(value, armor_type):
 
@@ -293,20 +344,43 @@ func update_hp(new_hp):
 
 func push_loop(delta):
 
+	var friction
+	var right_push = false
+	var left_push = false
+
+	if push_force > 0:
+		right_push = true
+	elif push_force < 0:
+		left_push = true
+
+	if not is_on_floor():
+		friction = 5
+	else:
+		friction = 25
+
+#	if diagonal_push:
+#		friction = 5
+#	else:
+#		friction = 25	
+
 	if not push_active:
 		velocity += GRAVITY * (delta * 2)
 	else:
 		velocity += (GRAVITY / 4) * (delta * 2)
 
-	if not push_active and push_force > 0:
-		push_force -= 25
+	if not push_active and right_push:
+		push_force -= friction
 
-	if not push_active and push_force < 0:
-		push_force += 25
+	if not push_active and left_push:
+		push_force += friction
+
+	if is_on_floor():
+		if right_push and push_force < 25:
+			push_force = 0
 
 	if is_on_wall() and push_active_timer.time_left < 0.005:
 		push_force = 0
-		push_ended()	
+		push_ended()
 
 func move_loop(delta):
 
@@ -345,7 +419,6 @@ func weapon_loop():
 
 		if Input.is_action_pressed(player.shoot):
 			can_take_damage()
-			weapon.shooter = self
 			weapon.shoot(active_dir)
 
 #		if Input.is_action_pressed(player.right):
@@ -386,7 +459,13 @@ func spawn_loop():
 			$anim.play("no_damage")
 	else:
 		$anim.stop()
-		
+
+func acid_damage_loop():
+	if take_acid_damage and in_acid:
+		take_acid_damage = false
+		acid_damage_timer.start()
+		take_damage(5, instance_name, "acid")
+
 func gui_loop():
 	if armor <= 0:
 		$armor_bar.visible = false
@@ -408,10 +487,12 @@ func _process(delta):
 		jump_loop()
 		weapon_loop()
 		spawn_loop()
+		acid_damage_loop()
 		gui_loop()
 
 #	if Input.is_action_just_pressed("ui_accept"):
-#		take_damage(100, self)
+#		if instance_name == "player1":
+#			take_damage(100, self.instance_name)
 
 func pick_up_weapon():
 
@@ -492,6 +573,7 @@ func turn_right():
 	sprite.flip_h = false
 	hands.global_position = global_position + Vector2(self.size.x - self.size.x / 4, self.size.y - self.size.y / 4)
 	if weapon.sprite:
+		#weapon.scale.x = 1
 		weapon.sprite.flip_h = false
 
 func turn_left():
@@ -499,6 +581,7 @@ func turn_left():
 	sprite.flip_h = true
 	hands.global_position = global_position + Vector2(self.size.x / 4, self.size.y - self.size.y / 4)
 	if weapon.sprite:
+		#weapon.scale.x = -1
 		weapon.sprite.flip_h = true
 
 func push(force, duration):

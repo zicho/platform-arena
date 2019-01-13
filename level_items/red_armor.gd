@@ -1,7 +1,7 @@
 extends "res://level_items/item_base.gd"
 
 func _ready():
-	respawn_time = 25
+	respawn_time = ITEM_SETTINGS.red_armor_spawn_time
 	
 	self.add_to_group("armors")
 

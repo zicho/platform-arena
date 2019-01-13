@@ -9,26 +9,49 @@ var ray_hit = Vector2()
 var shot_range = 500
 
 var damage_timer = Timer.new()
-var damage_cooldown = 0.1
+var damage_cooldown = 0.1 # pause between doing damage
 var do_damage = true
 
 var ammo_timer = Timer.new()
 var ammo_cooldown = 0.05
 var decrease_ammo = true
 
-func _ready():
+var increase_damage_timer = Timer.new()
+var increase_damage = false
 
+var damage_increase_reset = Timer.new()
+var target # damage is reset if target is changed
+
+func _ready():
+	shooter = get_parent()
+	shooter_ref = shooter.instance_name
 	damage = WEAPON_SETTINGS.ion_cannon_damage
 	damage_timer.connect("timeout", self, "do_damage")
 	damage_timer.set_wait_time(damage_cooldown)
 	add_child(damage_timer)
-	
+
 	ammo_timer.connect("timeout", self, "decrease_ammo")
 	ammo_timer.set_wait_time(ammo_cooldown)
 	add_child(ammo_timer)
-	
+
 	set_ammo(WEAPON_SETTINGS.ion_cannon_ammo)
 	set_cooldown_time(WEAPON_SETTINGS.ion_cannon_delay)
+	
+	increase_damage_timer.connect("timeout", self, "increase_damage")
+	increase_damage_timer.set_wait_time(WEAPON_SETTINGS.ion_cannon_damage_increase_time)
+	add_child(increase_damage_timer)
+	
+	damage_increase_reset.connect("timeout", self, "damage_increase_reset")
+	damage_increase_reset.set_wait_time(WEAPON_SETTINGS.ion_cannon_damage_increase_reset)
+	add_child(damage_increase_reset)
+
+func increase_damage():
+	increase_damage = true
+	
+func damage_increase_reset():
+	increase_damage = false
+	damage = WEAPON_SETTINGS.ion_cannon_damage
+	target = null
 
 func do_damage():
 	do_damage = true
@@ -41,14 +64,14 @@ func _process(delta):
 	var player
 
 	if shooter:
-		if shooter.instance_name == "player":
-			player = GLOBAL.p1
+		if shooter.instance_name == "player1":
+			player = GLOBAL.player1
 		if shooter.instance_name == "player2":
-			player = GLOBAL.p2
+			player = GLOBAL.player2
 		if shooter.instance_name == "player3":
-			player = GLOBAL.p3
+			player = GLOBAL.player3
 		if shooter.instance_name == "player4":
-			player = GLOBAL.p4
+			player = GLOBAL.player4
 			
 	if shooter:
 		if Input.is_action_pressed(player.shoot):
@@ -85,7 +108,6 @@ func shoot(dir):
 		ray_hit = $ray.get_collision_point()
 
 		if $ray.is_colliding():
-
 			var collider = $ray.get_collider()
 			
 			var p = load("res://particles/ion_hit.tscn").instance()
@@ -93,10 +115,30 @@ func shoot(dir):
 			p.global_position = ray_hit
 			
 			if collider != get_parent():
+
 				if collider.is_in_group("players"):
+
+					if target == null:
+						damage_increase_reset()
+						target = collider
+						increase_damage_timer.start()
+
+					if increase_damage and collider.can_take_damage:
+
+						if collider != target:
+							target = collider
+							damage_increase_reset()
+						
+						damage_increase_reset.start()
+						damage += WEAPON_SETTINGS.ion_cannon_damage_increase_value
+						increase_damage = false
+						increase_damage_timer.start()
+					
 					if do_damage:
 						do_damage = false
-						collider.take_damage(damage, get_parent())
+						collider.take_damage(damage, shooter_ref)
+						if collider.hp <= 0:
+							damage_increase_reset()
 						collider.hit_effect(damage, dir.x)
 						damage_timer.start()
 						

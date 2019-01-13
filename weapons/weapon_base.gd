@@ -6,13 +6,15 @@ onready var barrel = get_node("barrel")
 export(PackedScene) var projectile
 
 var shooter
+var shooter_ref
+
 var damage = 0
 
 export var display_name = "Weapon Name"
 var can_shoot = true
 var cd_timer = Timer.new()
 var shot_delay
-export var spread = 0.0
+var spread = 0.0
 var connected = false
 
 var ammo = -1
@@ -20,6 +22,8 @@ var max_ammo
 
 func _ready():
 	add_child(cd_timer)
+	shooter = get_parent()
+	shooter_ref = shooter.instance_name
 
 func set_ammo(ammo):
 	self.ammo = ammo
@@ -42,11 +46,9 @@ func shoot(dir):
 			var bullet = projectile.instance()
 			GLOBAL.level.add_child(bullet)
 
-			bullet.shooter = self.shooter
 			bullet.damage = self.damage
 
-			bullet._spawn(barrel.global_position, Vector2(dir.x, (dir.y + rand_range(-spread, spread))))
-			bullet.damage = shooter.weapon.damage
+			bullet._spawn(barrel.global_position, Vector2(dir.x, (dir.y + rand_range(-spread, spread))), shooter_ref)
 
 			GLOBAL.SFX.play(self.name)
 

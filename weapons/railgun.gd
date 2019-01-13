@@ -7,6 +7,8 @@ var shot_range = 2000
 
 func _ready():
 	damage = WEAPON_SETTINGS.railgun_damage
+	shooter = get_parent()
+	shooter_ref = shooter.instance_name
 	set_cooldown_time(WEAPON_SETTINGS.railgun_delay)
 	if GLOBAL.MODE_INSTAGIB:
 		set_ammo(-1)
@@ -53,7 +55,7 @@ func shoot(dir):
 			if collider != get_parent():
 				if collider.is_in_group("players"):
 					collider.hit_effect(damage, dir.x)
-					collider.take_damage(damage, get_parent())
+					collider.take_damage(damage, shooter_ref)
 
 		var t = trail.instance()
 

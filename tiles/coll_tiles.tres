@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=13 format=2]
+[gd_resource type="TileSet" load_steps=14 format=2]
 
 [ext_resource path="res://gfx/slope_R.png" type="Texture" id=1]
 [ext_resource path="res://gfx/long_slope_R.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://gfx/slope_L.png" type="Texture" id=4]
 [ext_resource path="res://gfx/long_slope_L.png" type="Texture" id=5]
 [ext_resource path="res://gfx/oneway_platform.png" type="Texture" id=6]
+[ext_resource path="res://gfx/acid.png" type="Texture" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -151,4 +152,13 @@ extents = Vector2( 12, 4 )
 "shape": SubResource( 4 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 24, 24 )
 } ]
+8/name = "acid"
+8/texture = ExtResource( 7 )
+8/tex_offset = Vector2( 0, 0 )
+8/modulate = Color( 1, 1, 1, 1 )
+8/region = Rect2( 0, 0, 24, 24 )
+8/is_autotile = false
+8/occluder_offset = Vector2( 12, 12 )
+8/navigation_offset = Vector2( 12, 12 )
+8/shapes = [  ]
 

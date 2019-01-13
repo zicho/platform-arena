@@ -41,6 +41,7 @@ extents = Vector2( 12, 4 )
 
 [node name="slope_R" type="Sprite" parent="." index="0"]
 
+editor/display_folded = true
 position = Vector2( 48, 24 )
 texture = ExtResource( 1 )
 __meta__ = {
@@ -70,6 +71,7 @@ __meta__ = {
 
 [node name="long_slope_R" type="Sprite" parent="." index="1"]
 
+editor/display_folded = true
 position = Vector2( 132, 24 )
 texture = ExtResource( 2 )
 __meta__ = {
@@ -99,6 +101,7 @@ __meta__ = {
 
 [node name="floor" type="Sprite" parent="." index="2"]
 
+editor/display_folded = true
 position = Vector2( 24, 24 )
 texture = ExtResource( 3 )
 __meta__ = {
@@ -124,6 +127,7 @@ shape = SubResource( 3 )
 
 [node name="slope_L" type="Sprite" parent="." index="3"]
 
+editor/display_folded = true
 position = Vector2( 0, 24 )
 texture = ExtResource( 4 )
 __meta__ = {
@@ -183,6 +187,7 @@ __meta__ = {
 
 [node name="slope_R_inverted" type="Sprite" parent="." index="5"]
 
+editor/display_folded = true
 position = Vector2( 192, 24 )
 texture = ExtResource( 4 )
 _sections_unfolded = [ "Transform" ]
@@ -213,6 +218,7 @@ __meta__ = {
 
 [node name="long_slope_L" type="Sprite" parent="." index="6"]
 
+editor/display_folded = true
 position = Vector2( 84, 24 )
 texture = ExtResource( 5 )
 __meta__ = {
@@ -242,6 +248,7 @@ __meta__ = {
 
 [node name="oneway_platform" type="Sprite" parent="." index="7"]
 
+editor/display_folded = true
 texture = ExtResource( 6 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="oneway_platform" index="0"]

@@ -7,7 +7,12 @@ var damage
 export var speed = 1200
 export var knockback = 0
 
-func _spawn(_pos, _dir):
+func _spawn(_pos, _dir, shooter):
+	
+	$gfx.z_index = -100
+	
+	self.shooter = shooter
+	
 	global_position = _pos
 	motion = _dir * speed
 	if motion.x > 0:

@@ -1,16 +1,15 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://projectiles/pulse_projectile.gd" type="Script" id=1]
-[ext_resource path="res://gfx/pulse_projectile.png" type="Texture" id=2]
+[ext_resource path="res://projectiles/assault_rifle_projectile.gd" type="Script" id=1]
+[ext_resource path="res://gfx/assault_rifle_projectile.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 3, 2 )
 
-[node name="pulse_projectile" type="Area2D"]
+[node name="assault_rifle_projectile" type="Area2D"]
 
-modulate = Color( 0.842774, 0.5625, 1, 1 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -19,9 +18,8 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform", "Visibility" ]
-speed = 1400
-knockback = 150
+speed = 1200
+knockback = 0
 
 [node name="shape" type="CollisionShape2D" parent="." index="0"]
 
@@ -30,8 +28,7 @@ shape = SubResource( 1 )
 [node name="gfx" type="Sprite" parent="." index="1"]
 
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Visibility" ]
 
-[connection signal="body_entered" from="." to="." method="_on_pulse_projectile_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_assault_rifle_projectile_body_entered"]
 
 

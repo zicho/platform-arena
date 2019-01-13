@@ -4,7 +4,8 @@ onready var splash_radius = $splash_radius
 onready var splash_shape = $splash_radius/shape
 onready var sprite = $gfx
 
-onready var shooter
+var shooter
+
 onready var damage
 var first_loop_done = false
 
@@ -14,6 +15,10 @@ func _ready():
 
 	splash_shape.shape.radius = 10
 	splash_radius.monitoring = true
+	
+func spawn(_pos, shooter):
+	self.global_position = _pos
+	self.shooter = shooter
 
 func _physics_process(delta):
 
