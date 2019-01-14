@@ -29,10 +29,10 @@ func shoot(dir):
 		
 		$ray.global_position = $barrel.global_position
 
-		if dir.x == 1:
-			$ray.cast_to = Vector2(shot_range, 0)
-		else:
-			$ray.cast_to = Vector2(-shot_range, 0)
+#		if dir.x == 1:
+		$ray.cast_to = Vector2(shot_range, 0)
+#		else:
+#			$ray.cast_to = Vector2(-shot_range, 0)
 
 		$ray.add_exception(get_parent())
 		$ray.force_raycast_update()

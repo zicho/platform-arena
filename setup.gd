@@ -47,7 +47,7 @@ func _process(delta):
 
 func play():
 	GLOBAL.level = load("res://levels/test_level.tscn").instance()
-	GLOBAL.level = selected_level.instance()
+	#GLOBAL.level = selected_level.instance()
 	get_tree().change_scene("res://main.tscn")
 
 func _on_Button_pressed():

@@ -1,7 +1,7 @@
 extends "res://level_items/weapons/weapon_pickup_base.gd"
 
 func _ready():
-	respawn_time = 15
+	respawn_time = ITEM_SETTINGS.weapon_respawn_time
 	weapon_name = "PULSE BLASTER"
 	weapon_ref = preload("res://weapons/pulse_blaster.tscn")
 	ammo = WEAPON_SETTINGS.pulse_blaster_ammo

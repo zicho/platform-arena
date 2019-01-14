@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 20, 10 )
 
-[node name="shotgun_pickup" type="Area2D" groups=[
+[node name="shotgun_pickup" type="Area2D" index="0" groups=[
 "weapon_pickups",
 ]]
 

@@ -17,6 +17,7 @@ func _ready():
 	splash_radius.monitoring = true
 	
 func spawn(_pos, shooter):
+	GLOBAL.level.add_child(self)
 	self.global_position = _pos
 	self.shooter = shooter
 
@@ -28,13 +29,11 @@ func _physics_process(delta):
 
 	else:
     	queue_free()
-		
-	splash_radius.get_overlapping_bodies()
 
 	if splash_radius.get_overlapping_bodies().size() > 0:
 		for b in splash_radius.get_overlapping_bodies():
 
-			if b.is_in_group("players") and players_hit.find(b.name) == -1:
+			if b.is_in_group("players"):
 
 				var r1 = RayCast2D.new()
 				var r2 = RayCast2D.new()
@@ -68,34 +67,24 @@ func _physics_process(delta):
 
 				r1.position = r1.position + Vector2(-offset, -offset)
 				r1.cast_to = to_local(b.global_position + Vector2(12,12))
-				r1.force_raycast_update()
 
 				r2.position = r2.position + Vector2(offset, -offset)
 				r2.cast_to = to_local(b.global_position + Vector2(12,12))
-				r2.force_raycast_update()
 
 				r3.position = r3.position + Vector2(offset, offset)
 				r3.cast_to = to_local(b.global_position + Vector2(12,12))
-				r3.force_raycast_update()
 
 				r4.position = r4.position + Vector2(-offset, offset)
 				r4.cast_to = to_local(b.global_position + Vector2(12,12))
-				r4.force_raycast_update()
 
-				#r.cast_to = to_local(b.global_position + Vector2(12,12))
-				#r.force_raycast_update()
 				for r in rays:
-					var hit
-					hit = r.get_collision_point()
+					r.force_raycast_update()
 					if r.is_colliding():
 						var collider = r.get_collider()
-						var ray_hit = r.get_collision_point()
-
-						if collider.is_in_group("players"):
-							if not players_hit.has(collider):
-								players_hit.append(collider)
-								collider.hit_effect(damage, b.global_position.x - global_position.x)
-								collider.take_damage(damage, shooter)
+						if collider.is_in_group("players") and not players_hit.has(collider):
+							players_hit.append(collider)
+							collider.take_damage(damage, shooter)
+							collider.hit_effect(damage, b.global_position.x - global_position.x)
 
 	if not first_loop_done:
 		GLOBAL.SFX.play("explosion")

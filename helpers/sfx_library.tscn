@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://helpers/sfx_library.gd" type="Script" id=1]
 [ext_resource path="res://sfx/armor_pickup.wav" type="AudioStream" id=2]
@@ -12,13 +12,14 @@
 [ext_resource path="res://sfx/jump.wav" type="AudioStream" id=10]
 [ext_resource path="res://sfx/portal.wav" type="AudioStream" id=11]
 [ext_resource path="res://sfx/machine_gun.wav" type="AudioStream" id=12]
-[ext_resource path="res://sfx/pulse_blaster.wav" type="AudioStream" id=13]
-[ext_resource path="res://sfx/railgun.wav" type="AudioStream" id=14]
-[ext_resource path="res://sfx/rocket_launcher.wav" type="AudioStream" id=15]
-[ext_resource path="res://sfx/rocket_explosion.wav" type="AudioStream" id=16]
-[ext_resource path="res://sfx/shotgun.wav" type="AudioStream" id=17]
-[ext_resource path="res://sfx/spawn.wav" type="AudioStream" id=18]
-[ext_resource path="res://sfx/acid.wav" type="AudioStream" id=19]
+[ext_resource path="res://sfx/assault_rifle.wav" type="AudioStream" id=13]
+[ext_resource path="res://sfx/pulse_blaster.wav" type="AudioStream" id=14]
+[ext_resource path="res://sfx/railgun.wav" type="AudioStream" id=15]
+[ext_resource path="res://sfx/rocket_launcher.wav" type="AudioStream" id=16]
+[ext_resource path="res://sfx/rocket_explosion.wav" type="AudioStream" id=17]
+[ext_resource path="res://sfx/shotgun.wav" type="AudioStream" id=18]
+[ext_resource path="res://sfx/spawn.wav" type="AudioStream" id=19]
+[ext_resource path="res://sfx/acid.wav" type="AudioStream" id=20]
 
 [node name="sfx_library" type="Node"]
 
@@ -125,23 +126,14 @@ bus = "Master"
 
 [node name="assault_rifle" type="AudioStreamPlayer" parent="." index="11"]
 
-stream = ExtResource( 12 )
-volume_db = -6.0
+stream = ExtResource( 13 )
+volume_db = -12.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
 
 [node name="pulse_blaster" type="AudioStreamPlayer" parent="." index="12"]
-
-stream = ExtResource( 13 )
-volume_db = -6.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
-
-[node name="railgun" type="AudioStreamPlayer" parent="." index="13"]
 
 stream = ExtResource( 14 )
 volume_db = -6.0
@@ -150,9 +142,18 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="rocket_launcher" type="AudioStreamPlayer" parent="." index="14"]
+[node name="railgun" type="AudioStreamPlayer" parent="." index="13"]
 
 stream = ExtResource( 15 )
+volume_db = -6.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="rocket_launcher" type="AudioStreamPlayer" parent="." index="14"]
+
+stream = ExtResource( 16 )
 volume_db = -12.0
 pitch_scale = 1.0
 autoplay = false
@@ -161,7 +162,7 @@ bus = "Master"
 
 [node name="explosion" type="AudioStreamPlayer" parent="." index="15"]
 
-stream = ExtResource( 16 )
+stream = ExtResource( 17 )
 volume_db = -3.0
 pitch_scale = 1.0
 autoplay = false
@@ -170,7 +171,7 @@ bus = "Master"
 
 [node name="shotgun" type="AudioStreamPlayer" parent="." index="16"]
 
-stream = ExtResource( 17 )
+stream = ExtResource( 18 )
 volume_db = -8.0
 pitch_scale = 1.0
 autoplay = false
@@ -179,7 +180,7 @@ bus = "Master"
 
 [node name="spawn" type="AudioStreamPlayer" parent="." index="17"]
 
-stream = ExtResource( 18 )
+stream = ExtResource( 19 )
 volume_db = -6.0
 pitch_scale = 1.0
 autoplay = false
@@ -188,7 +189,7 @@ bus = "Master"
 
 [node name="acid" type="AudioStreamPlayer" parent="." index="18"]
 
-stream = ExtResource( 19 )
+stream = ExtResource( 20 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = false

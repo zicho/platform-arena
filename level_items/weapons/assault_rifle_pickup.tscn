@@ -1,48 +1,41 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://level_items/weapons/ion_cannon_pickup.gd" type="Script" id=1]
-[ext_resource path="res://gfx/ion_cannon.png" type="Texture" id=2]
+[ext_resource path="res://level_items/weapons/assault_rifle_pickup.gd" type="Script" id=1]
+[ext_resource path="res://weapons/assault_rifle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://gfx/assault_rifle.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 20, 10 )
+extents = Vector2( 20.5695, 10 )
 
-[node name="ion_cannon_pickup" type="Area2D" groups=[
+[node name="assault_rifle_pickup" type="Area2D" groups=[
 "weapon_pickups",
 ]]
 
-position = Vector2( 230, 110 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-collision_layer = 0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision" ]
-__meta__ = {
-"_edit_group_": true
-}
-weapon_name = null
-weapon_ref = null
+weapon_name = "Assault Rifle"
+weapon_ref = ExtResource( 2 )
 
 [node name="gfx" type="Sprite" parent="." index="0"]
 
-texture = ExtResource( 2 )
-_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
+texture = ExtResource( 3 )
 
 [node name="shape" type="CollisionShape2D" parent="." index="1"]
 
+position = Vector2( -0.157776, -0.977734 )
 scale = Vector2( 1, 0.5 )
 shape = SubResource( 1 )
-_sections_unfolded = [ "Pickable" ]
 
 [node name="info" type="Label" parent="." index="2"]
 
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -64,10 +57,9 @@ autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Rect" ]
 
-[connection signal="body_entered" from="." to="." method="_on_ion_cannon_pickup_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_assault_rifle_pickup_body_entered"]
 
-[connection signal="body_exited" from="." to="." method="_on_ion_cannon_pickup_body_exited"]
+[connection signal="body_exited" from="." to="." method="_on_assault_rifle_pickup_body_exited"]
 
 

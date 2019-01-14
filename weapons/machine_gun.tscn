@@ -10,11 +10,10 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 projectile = ExtResource( 2 )
 display_name = "Weapon Name"
-spread = 0.0
 
 [node name="barrel" type="Position2D" parent="." index="0"]
 
-position = Vector2( -0.804507, -3.36628 )
+position = Vector2( -14.3089, -3.47095 )
 _sections_unfolded = [ "Pause", "Transform" ]
 
 [node name="gfx" type="Sprite" parent="." index="1"]

@@ -32,7 +32,8 @@ var dirs = { "right": Vector2(1,0), "left": Vector2(-1, 0) }
 var active_dir 
 
 #onready var weapon = preload("res://weapons/machine_gun.tscn").instance()
-onready var weapon = preload("res://weapons/assault_rifle.tscn").instance()
+onready var weapon = preload("res://weapons/rocket_launcher.tscn").instance()
+#onready var weapon = preload("res://weapons/assault_rifle.tscn").instance()
 #onready var weapon = preload("res://weapons/pulse_blaster.tscn").instance()
 onready var secondary_weapon# = preload("res://weapons/shotgun.tscn").instance()
 
@@ -73,7 +74,7 @@ func _ready():
 		weapon.ammo = -1
 
 	update_hp(100)
-	update_armor(0)
+	update_armor(100)
 	connect("update_frags", GLOBAL, "update_frags")
 	fragged = false
 	
@@ -155,13 +156,15 @@ func remove_spawn_marker(anim_name):
 	$spawn_marker.queue_free()
 
 func hit_effect(damage, dir):
-	if can_take_damage:
-		
+
+	if can_take_damage and hp > 0:
+		print(hp)
+		print("BLLOOOD")
 		var blood = damage / 5
-		
+
 		if blood < 1:
 			blood = 1
-		
+
 		for b in range(blood):
 
 			var blood_effect = load("res://effects/hit_effect.tscn").instance()
@@ -244,10 +247,8 @@ func take_damage(damage, dealt_by, weapon = null):
 			fragged(dealt_by)
 			
 func fragged(fragged_by):
+
 	if fragged_by:
-
-		
-
 		for p in get_tree().get_nodes_in_group("players"):
 			if p.instance_name == fragged_by:
 				var frag_marker = load("res://effects/frag_marker.tscn").instance()
@@ -561,9 +562,9 @@ func switch_weapon(remove_old = false): # remove old uses to remove weapons whic
 func turn_weapon_sprite():
 	if weapon.sprite:
 		if active_dir.x == 1:
-			weapon.sprite.flip_h = false
+			turn_right()
 		else:
-			weapon.sprite.flip_h = true	
+			turn_left()
 
 func can_shoot():
 	can_shoot = true
@@ -572,17 +573,17 @@ func turn_right():
 	active_dir = dirs["right"]
 	sprite.flip_h = false
 	hands.global_position = global_position + Vector2(self.size.x - self.size.x / 4, self.size.y - self.size.y / 4)
-	if weapon.sprite:
-		#weapon.scale.x = 1
-		weapon.sprite.flip_h = false
+	if weapon:
+		weapon.scale.x = 1
+		#weapon.sprite.flip_h = false
 
 func turn_left():
 	active_dir = dirs["left"]
 	sprite.flip_h = true
 	hands.global_position = global_position + Vector2(self.size.x / 4, self.size.y - self.size.y / 4)
-	if weapon.sprite:
-		#weapon.scale.x = -1
-		weapon.sprite.flip_h = true
+	if weapon:
+		weapon.scale.x = -1
+		#weapon.sprite.flip_h = true
 
 func push(force, duration):
 

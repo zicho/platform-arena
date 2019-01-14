@@ -1,6 +1,7 @@
 extends "res://projectiles/projectile_base.gd"
 
 onready var explosion = preload("res://projectiles/explosion.tscn")
+onready var exploded = false
 
 func _process(delta):
 	speed += 24
@@ -17,5 +18,7 @@ func destroy():
 	var e = explosion.instance()
 	e.damage = self.damage
 	self.queue_free()
-	GLOBAL.level.add_child(e)
-	e.spawn(global_position, shooter)
+	
+	if not exploded:
+		exploded = true
+		e.spawn(global_position, shooter)

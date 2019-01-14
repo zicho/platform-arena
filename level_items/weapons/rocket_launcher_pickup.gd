@@ -1,7 +1,7 @@
 extends "res://level_items/weapons/weapon_pickup_base.gd"
 
 func _ready():
-	respawn_time = 15
+	respawn_time = ITEM_SETTINGS.weapon_respawn_time
 	weapon_name = "ROCKET LAUNCHER"
 	weapon_ref = preload("res://weapons/rocket_launcher.tscn")
 	ammo = WEAPON_SETTINGS.rocket_launcher_ammo

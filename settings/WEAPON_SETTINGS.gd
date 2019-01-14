@@ -8,6 +8,7 @@ const machine_gun_delay = 0.15
 const ion_cannon_damage = 8.0 #8.0
 const ion_cannon_delay = 0.01 # 0.01
 const ion_cannon_ammo = 200 #200
+const ion_cannon_range = 500 #500
 const ion_cannon_damage_increase_value = 0.5 # seconds 
 const ion_cannon_damage_increase_time = 0.5 # seconds 
 const ion_cannon_damage_increase_reset = 2 # seconds 
@@ -29,7 +30,7 @@ const assault_rifle_ammo = 60
 # SHOTGUN
 const shotgun_damage = 5
 const shotgun_pellets = 16
-const shotgun_delay = 0.8
+const shotgun_delay = 0.9
 const shotgun_spread = 0.2
 const shotgun_ammo = 24
 

@@ -24,7 +24,8 @@ var target # damage is reset if target is changed
 
 func _ready():
 	shooter = get_parent()
-	shooter_ref = shooter.instance_name
+	if shooter:
+		shooter_ref = shooter.instance_name
 	damage = WEAPON_SETTINGS.ion_cannon_damage
 	damage_timer.connect("timeout", self, "do_damage")
 	damage_timer.set_wait_time(damage_cooldown)
@@ -97,10 +98,10 @@ func shoot(dir):
 
 		$ray.global_position = $barrel.global_position
 		
-		if dir.x == 1:
-			$ray.cast_to = Vector2(shot_range, 0)
-		else:
-			$ray.cast_to = Vector2(-shot_range, 0)
+#		if dir.x == 1:
+		$ray.cast_to = Vector2(shot_range, 0)
+#		else:
+#		$ray.cast_to = Vector2(-shot_range, 0)
 
 		$ray.add_exception(get_parent())
 		$ray.force_raycast_update()
@@ -146,6 +147,8 @@ func shoot(dir):
 			ray_hit = Vector2(0,0)
 
 		if $trail:
+			
+			$trail.scale.x = scale.x
 			
 			$trail.global_position = Vector2(0,0)
 			

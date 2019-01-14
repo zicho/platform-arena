@@ -16,6 +16,6 @@ texture = ExtResource( 3 )
 
 [node name="barrel" type="Position2D" parent="." index="1"]
 
-position = Vector2( -2.95578, -2.74298 )
+position = Vector2( -15.0359, -2.87149 )
 
 

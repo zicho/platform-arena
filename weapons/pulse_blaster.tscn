@@ -16,7 +16,7 @@ texture = ExtResource( 3 )
 
 [node name="barrel" type="Position2D" parent="." index="1"]
 
-position = Vector2( -1.93175, -4.71217 )
+position = Vector2( -24.2003, -4.71217 )
 _sections_unfolded = [ "Transform" ]
 
 

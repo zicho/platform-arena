@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 20, 10 )
 
-[node name="machine_gun_pickup" type="Area2D" index="0" groups=[
+[node name="machine_gun_pickup" type="Area2D" groups=[
 "weapon_pickups",
 ]]
 
@@ -44,7 +44,6 @@ _sections_unfolded = [ "Pickable" ]
 [node name="info" type="Label" parent="." index="2"]
 
 editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
