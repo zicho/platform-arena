@@ -38,6 +38,7 @@ const shotgun_ammo = 24
 const rocket_launcher_damage = 100
 const rocket_launcher_delay = 1
 const rocket_launcher_ammo = 10
+const rocket_acceleration = 36 # 24
 
 # RAILGUN
 const railgun_damage = 80

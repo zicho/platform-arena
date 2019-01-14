@@ -4,7 +4,7 @@ onready var explosion = preload("res://projectiles/explosion.tscn")
 onready var exploded = false
 
 func _process(delta):
-	speed += 24
+	speed += WEAPON_SETTINGS.rocket_acceleration
 
 func _on_rocket_body_entered(body):
 	if body.is_in_group("players"):
