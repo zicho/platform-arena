@@ -333,6 +333,7 @@ func update_hp(new_hp):
 				for p in get_tree().get_nodes_in_group("players"):
 					if p.active:
 						player_alive = p
+						print("jf")
 				
 				player_alive.player.frags += 1
 				emit_signal("update_frags", player_alive.instance_name, player_alive.player.frags)
