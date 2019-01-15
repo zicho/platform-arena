@@ -69,7 +69,7 @@ func _physics_process(delta):
 				r1.cast_to = to_local(b.global_position + Vector2(12,12))
 
 				r2.position = r2.position + Vector2(offset, -offset)
-				r2.cast_to = to_local(b.global_position + Vector2(12,12))
+				r2.cast_to = to_local(b.global_position + Vector2(12,12))W
 
 				r3.position = r3.position + Vector2(offset, offset)
 				r3.cast_to = to_local(b.global_position + Vector2(12,12))

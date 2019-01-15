@@ -5,7 +5,7 @@ onready var frag_limit = get_node("main/Container/frag_limit_number")
 
 onready var level_name = get_node("main/Container3/level_name")
 onready var selected_level
-var selected_level_index = 0
+var selected_level_index = 2
 
 
 func _ready():

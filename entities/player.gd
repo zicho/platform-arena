@@ -158,8 +158,6 @@ func remove_spawn_marker(anim_name):
 func hit_effect(damage, dir):
 
 	if can_take_damage and hp > 0:
-		print(hp)
-		print("BLLOOOD")
 		var blood = damage / 5
 
 		if blood < 1:
