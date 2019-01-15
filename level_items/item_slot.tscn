@@ -44,12 +44,13 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Emission Shape", "Gravity", "Spread" ]
 
-[node name="item_slot" type="Node2D" index="0"]
+[node name="item_slot" type="Node2D" index="0" groups=[
+"item_slots",
+]]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 item_to_spawn = null
-item_respawn_time = 0.5
 
 [node name="gfx" type="Sprite" parent="." index="0"]
 

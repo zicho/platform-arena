@@ -1,13 +1,14 @@
 extends KinematicBody2D
 
-const GRAVITY = Vector2(0, 1200)
+var GRAVITY = GAME_SETTINGS.gravity
+var JUMP_FORCE = GAME_SETTINGS.jump_force
+var JUMP_THRESHOLD = GAME_SETTINGS.jump_threshold
+
 const FLOOR_NORMAL = Vector2(0, -1)
 const ACCELERATION = 1
-const JUMP_FORCE = 800
-const JUMP_THRESHOLD = 0.2
 
 var velocity = Vector2()
-var speed = 300
+var speed = GAME_SETTINGS.movement_speed
 var movement = 0
 
 var can_jump = false
@@ -31,8 +32,8 @@ onready var size = sprite.texture.get_size()
 var dirs = { "right": Vector2(1,0), "left": Vector2(-1, 0) }
 var active_dir 
 
-#onready var weapon = preload("res://weapons/machine_gun.tscn").instance()
-onready var weapon = preload("res://weapons/rocket_launcher.tscn").instance()
+onready var weapon = preload("res://weapons/machine_gun.tscn").instance()
+#onready var weapon = preload("res://weapons/rocket_launcher.tscn").instance()
 #onready var weapon = preload("res://weapons/assault_rifle.tscn").instance()
 #onready var weapon = preload("res://weapons/pulse_blaster.tscn").instance()
 onready var secondary_weapon# = preload("res://weapons/shotgun.tscn").instance()
@@ -74,7 +75,7 @@ func _ready():
 		weapon.ammo = -1
 
 	update_hp(100)
-	update_armor(100)
+	update_armor(0)
 	connect("update_frags", GLOBAL, "update_frags")
 	fragged = false
 	
@@ -335,8 +336,13 @@ func update_hp(new_hp):
 				
 				player_alive.player.frags += 1
 				emit_signal("update_frags", player_alive.instance_name, player_alive.player.frags)
+				
 				player_alive.queue_free()
 				if not player_alive.player.frags == GLOBAL.FRAG_LIMIT:
+					GLOBAL.PLAYERS_LEFT = 0
+					for i in get_tree().get_nodes_in_group("item_slots"):
+						i.respawn_timer.stop()
+						i.spawn_item()
 					GLOBAL.ROUND_RESET.start()
 
 	emit_signal("hp_changed", hp, self)

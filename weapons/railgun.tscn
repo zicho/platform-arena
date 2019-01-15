@@ -9,7 +9,6 @@
 script = ExtResource( 1 )
 projectile = null
 display_name = "Weapon Name"
-spread = 0.0
 
 [node name="gfx" type="Sprite" parent="." index="0"]
 

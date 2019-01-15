@@ -5,7 +5,7 @@ onready var frag_limit = get_node("main/Container/frag_limit_number")
 
 onready var level_name = get_node("main/Container3/level_name")
 onready var selected_level
-var selected_level_index = 2
+var selected_level_index = 0
 
 
 func _ready():
@@ -46,8 +46,8 @@ func _process(delta):
 		play()
 
 func play():
-	GLOBAL.level = load("res://levels/test_level.tscn").instance()
-	#GLOBAL.level = selected_level.instance()
+	#GLOBAL.level = load("res://levels/test_level.tscn").instance()
+	GLOBAL.level = selected_level.instance()
 	get_tree().change_scene("res://main.tscn")
 
 func _on_Button_pressed():
