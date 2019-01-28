@@ -37,7 +37,7 @@ points = PoolVector2Array( 0, -24, 0, 0, -48, 0 )
 custom_solver_bias = 0.0
 extents = Vector2( 12, 4 )
 
-[node name="coll_tiles" type="Node"]
+[node name="coll_tiles" type="Node" index="0"]
 
 [node name="slope_R" type="Sprite" parent="." index="0"]
 
@@ -155,68 +155,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="slope_L_inverted" type="Sprite" parent="." index="4"]
-
-position = Vector2( 168, 24 )
-texture = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="StaticBody2D" type="StaticBody2D" parent="slope_L_inverted" index="0"]
-
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="slope_L_inverted/StaticBody2D" index="0"]
-
-position = Vector2( -12, 12 )
-shape = SubResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="slope_R_inverted" type="Sprite" parent="." index="5"]
-
-editor/display_folded = true
-position = Vector2( 192, 24 )
-texture = ExtResource( 4 )
-_sections_unfolded = [ "Transform" ]
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="StaticBody2D" type="StaticBody2D" parent="slope_R_inverted" index="0"]
-
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="slope_R_inverted/StaticBody2D" index="0"]
-
-position = Vector2( 12, 12 )
-shape = SubResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="long_slope_L" type="Sprite" parent="." index="6"]
+[node name="long_slope_L" type="Sprite" parent="." index="4"]
 
 editor/display_folded = true
 position = Vector2( 84, 24 )
@@ -246,7 +185,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="oneway_platform" type="Sprite" parent="." index="7"]
+[node name="oneway_platform" type="Sprite" parent="." index="5"]
 
 editor/display_folded = true
 texture = ExtResource( 6 )

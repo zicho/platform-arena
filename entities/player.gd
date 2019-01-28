@@ -32,8 +32,8 @@ onready var size = sprite.texture.get_size()
 var dirs = { "right": Vector2(1,0), "left": Vector2(-1, 0) }
 var active_dir 
 
-onready var weapon = preload("res://weapons/machine_gun.tscn").instance()
-#onready var weapon = preload("res://weapons/rocket_launcher.tscn").instance()
+#onready var weapon = preload("res://weapons/machine_gun.tscn").instance()
+onready var weapon = preload("res://weapons/rocket_launcher.tscn").instance()
 #onready var weapon = preload("res://weapons/assault_rifle.tscn").instance()
 #onready var weapon = preload("res://weapons/pulse_blaster.tscn").instance()
 onready var secondary_weapon# = preload("res://weapons/shotgun.tscn").instance()
@@ -324,7 +324,7 @@ func update_hp(new_hp):
 		if not GLOBAL.MODE_LAST_MAN_STANDING:
 			respawn_timer.start()
 
-		else:
+		elif GLOBAL.MODE_LAST_MAN_STANDING:
 			active = false
 			GLOBAL.PLAYERS_LEFT -= 1
 
@@ -333,7 +333,6 @@ func update_hp(new_hp):
 				for p in get_tree().get_nodes_in_group("players"):
 					if p.active:
 						player_alive = p
-						print("jf")
 				
 				player_alive.player.frags += 1
 				emit_signal("update_frags", player_alive.instance_name, player_alive.player.frags)
@@ -341,9 +340,10 @@ func update_hp(new_hp):
 				player_alive.queue_free()
 				if not player_alive.player.frags == GLOBAL.FRAG_LIMIT:
 					GLOBAL.PLAYERS_LEFT = 0
-					for i in get_tree().get_nodes_in_group("item_slots"):
-						i.respawn_timer.stop()
-						i.spawn_item()
+					if not GLOBAL.MODE_INSTAGIB:
+						for i in get_tree().get_nodes_in_group("item_slots"):
+							i.respawn_timer.stop()
+							i.spawn_item()
 					GLOBAL.ROUND_RESET.start()
 
 	emit_signal("hp_changed", hp, self)

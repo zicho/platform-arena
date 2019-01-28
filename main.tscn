@@ -18,24 +18,24 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -606.0
-margin_top = -540.0
-margin_right = 594.0
-margin_bottom = 540.0
+margin_left = -960.0
+margin_top = -537.0
+margin_right = 960.0
+margin_bottom = 423.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-stretch = false
+stretch = true
 stretch_shrink = 1
 _sections_unfolded = [ "Anchor", "Material", "Rect", "Visibility" ]
 
 [node name="Viewport" type="Viewport" parent="Container" index="0"]
 
-arvr = false
-size = Vector2( 1200, 948 )
+arvr = true
+size = Vector2( 1920, 960 )
 own_world = false
 world = null
 transparent_bg = false
@@ -212,14 +212,14 @@ size_flags_vertical = 1
 
 [node name="interface" type="PanelContainer" parent="." index="3"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 352.0
-margin_top = 946.0
-margin_right = 1556.0
-margin_bottom = 1081.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -602.0
+margin_top = 422.0
+margin_right = 602.0
+margin_bottom = 542.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -240,7 +240,7 @@ anchor_bottom = 0.0
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1197.0
-margin_bottom = 128.0
+margin_bottom = 113.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0

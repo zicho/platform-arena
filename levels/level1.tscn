@@ -18,7 +18,7 @@
 [ext_resource path="res://level_items/weapons/railgun_pickup.tscn" type="PackedScene" id=16]
 [ext_resource path="res://level_items/weapons/assault_rifle_pickup.tscn" type="PackedScene" id=17]
 
-[node name="level1" type="TileMap"]
+[node name="level1" type="TileMap" index="0"]
 
 position = Vector2( 193, 287 )
 mode = 0

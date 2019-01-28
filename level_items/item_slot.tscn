@@ -44,7 +44,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Emission Shape", "Gravity", "Spread" ]
 
-[node name="item_slot" type="Node2D" index="0" groups=[
+[node name="item_slot" type="Node2D" groups=[
 "item_slots",
 ]]
 
